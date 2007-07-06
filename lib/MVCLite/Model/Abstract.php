@@ -10,23 +10,20 @@
  */
 
 /**
- * This is the bootstrap-file which dispatches the request.
  * 
- * @category   Core
- * @package    MVCLite
+ * 
+ * @category   MVCLite
+ * @package    Model
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-
-include_once 'config.php';
-
-/*
- * Lets the application dispatch.
- */
-require_once 'MVCLite.php';
-
-$mvc = MVCLite::getInstance();
-echo $mvc->dispatch();
+abstract class MVCLite_Model_Abstract
+{
+	/**
+	 * Suffix for controller-classes.
+	 */
+	const SUFFIX = 'Model';
+}
 ?>
