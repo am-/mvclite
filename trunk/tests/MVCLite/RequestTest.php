@@ -54,7 +54,7 @@ class MVCLite_RequestTest extends PHPUnit_Framework_TestCase
 	{
 		$request = new MVCLite_Request($this->getRoute());
 		
-		$controller = 'foobar';
+		$controller = 'Foobar';
 		$action = 'bar';
 		$params = array(
 			'fubar' => 'barbar',
@@ -68,9 +68,19 @@ class MVCLite_RequestTest extends PHPUnit_Framework_TestCase
 			'Inserted and returned controller do not match'
 		);
 		$this->assertEquals(
+			$controller,
+			$request->setController(strtolower($controller))->getController(),
+			'Inserted (lowercase) and returned controller do not match'
+		);
+		$this->assertEquals(
 			$action,
 			$request->setAction($action)->getAction(),
 			'Inserted and returned action do not match'
+		);
+		$this->assertEquals(
+			$action,
+			$request->setAction(strtoupper($action))->getAction(),
+			'Inserted (uppercase) and returned action do not match'
 		);
 		$this->assertEquals(
 			$params,
@@ -212,6 +222,11 @@ class UnitTestRoute implements MVCLite_Request_Route
 		ob_end_clean();
 		
 		return $result;
+	}
+	
+	public function parse ($uri)
+	{
+		throw new Exception('This method should not be called');
 	}
 }
 
