@@ -68,14 +68,14 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	 * 
 	 * @var string
 	 */
-	private $_action;
+	private $_action = 'index';
 	
 	/**
 	 * Name of the controller.
 	 * 
 	 * @var string
 	 */
-	private $_controller;
+	private $_controller = 'Index';
 	
 	/**
 	 * Array containing essential global variables.
