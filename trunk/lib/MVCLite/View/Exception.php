@@ -10,23 +10,17 @@
  */
 
 /**
- * This is the bootstrap-file which dispatches the request.
+ * Exception which is used within the view-component of MVCLite.
  * 
- * @category   Core
- * @package    MVCLite
+ * @category   MVCLite
+ * @package    View
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-
-include_once 'config.php';
-
-/*
- * Lets the application dispatch.
- */
-require_once 'MVCLite.php';
-
-$mvc = MVCLite::getInstance();
-echo $mvc->dispatch();
+class MVCLite_View_Exception extends Exception
+{
+	
+}
 ?>
