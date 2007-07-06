@@ -12,22 +12,21 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/Core/AllTests.php';
-require_once 'MVCLite/View/AllTests.php';
-require_once 'MVCLite/Request/AllTests.php';
+require_once 'MVCLite/RequestTest.php';
+require_once 'MVCLite/Request/GlobalTest.php';
 
 /**
- * Runs all tests.
+ * Runs all tests in the core.
  * 
  * @category   MVCLite
- * @package    Core
+ * @package    Request
  * @subpackage UnitTests
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-class AllTests
+class MVCLite_Request_AllTests
 {
 	/**
 	 * Runs the tests.
@@ -46,11 +45,10 @@ class AllTests
 	 */
 	public static function suite ()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('MVCLite - All tests');
+		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Request tests');
 		
-		$suite->addTest(MVCLite_View_AllTests::suite());
-		$suite->addTest(MVCLite_Core_AllTests::suite());
-		$suite->addTest(MVCLite_Request_AllTests::suite());
+		$suite->addTestSuite('MVCLite_RequestTest');
+		$suite->addTestSuite('MVCLite_Request_GlobalTest');
 		
 		return $suite;
 	}
