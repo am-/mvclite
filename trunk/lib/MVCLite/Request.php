@@ -10,6 +10,7 @@
  */
 
 require_once 'MVCLite/Request/Exception.php';
+require_once 'MVCLite/Request/Global.php';
 require_once 'MVCLite/Request/Route.php';
 require_once 'MVCLite/Request/Global/Cookie.php';
 require_once 'MVCLite/Request/Global/Get.php';
@@ -109,12 +110,12 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	{
 		$this->_route = $route;
 		
-		$this->setGlobal(MVCLite_Request_Global_Cookie::getInstance())
-			 ->setGlobal(MVCLite_Request_Global_Get::getInstance())
-			 ->setGlobal(MVCLite_Request_Global_Post::getInstance())
-			 ->setGlobal(MVCLite_Request_Global_Request::getInstance())
-			 ->setGlobal(MVCLite_Request_Global_Server::getInstance())
-			 ->setGlobal(MVCLite_Request_Global_Session::getInstance());
+		$this->setGlobal(MVCLite_Request_Global_Cookie::getInstance()->set(null))
+			 ->setGlobal(MVCLite_Request_Global_Get::getInstance()->set(null))
+			 ->setGlobal(MVCLite_Request_Global_Post::getInstance()->set(null))
+			 ->setGlobal(MVCLite_Request_Global_Request::getInstance()->set(null))
+			 ->setGlobal(MVCLite_Request_Global_Server::getInstance()->set(null))
+			 ->setGlobal(MVCLite_Request_Global_Session::getInstance()->set(null));
 	}
 	
 	/**
