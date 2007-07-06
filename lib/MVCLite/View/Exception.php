@@ -9,6 +9,8 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'MVCLite/Exception.php';
+
 /**
  * Exception which is used within the view-component of MVCLite.
  * 
@@ -19,7 +21,7 @@
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-class MVCLite_View_Exception extends Exception
+class MVCLite_View_Exception extends MVCLite_Exception
 {
 	
 }
