@@ -292,7 +292,7 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	 */
 	public function setAction ($action)
 	{
-		$this->_action = $action;
+		$this->_action = strtolower($action);
 		
 		return $this;
 	}
@@ -305,7 +305,7 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	 */
 	public function setController ($controller)
 	{
-		$this->_controller = $controller;
+		$this->_controller = ucfirst(strtolower($controller));
 		
 		return $this;
 	}
