@@ -14,6 +14,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/RequestTest.php';
 require_once 'MVCLite/Request/GlobalTest.php';
+require_once 'MVCLite/Request/RouteTest.php';
 
 /**
  * Runs all tests in the core.
@@ -49,6 +50,7 @@ class MVCLite_Request_AllTests
 		
 		$suite->addTestSuite('MVCLite_RequestTest');
 		$suite->addTestSuite('MVCLite_Request_GlobalTest');
+		$suite->addTestSuite('MVCLite_Request_RouteTest');
 		
 		return $suite;
 	}
