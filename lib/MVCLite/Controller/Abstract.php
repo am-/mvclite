@@ -9,6 +9,12 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'MVCLite/Loader.php';
+require_once 'MVCLite/Controller/Exception.php';
+require_once 'MVCLite/Request.php';
+require_once 'MVCLite/View.php';
+require_once 'MVCLite/View/Layout.php';
+
 /**
  * 
  * 
@@ -23,7 +29,305 @@ abstract class MVCLite_Controller_Abstract
 {
 	/**
 	 * Suffix for controller-classes.
+	 * 
+	 * @const string
 	 */
 	const SUFFIX = 'Controller';
+	
+	/**
+	 * Suffix for action-methods.
+	 * 
+	 * @const string
+	 */
+	const SUFFIX_ACTION = 'Action';
+	
+	/**
+	 * Determines whether layout should be used or not.
+	 * 
+	 * @var boolean
+	 */
+	protected $_layout = true;
+	
+	/**
+	 * Instance of a layout-object.
+	 * 
+	 * @var MVCLite_View_Layout
+	 */
+	protected $_layoutObject;
+	
+	/**
+	 * Instance of a model.
+	 * 
+	 * @var MVCLite_Model_Abstract
+	 */
+	protected $_model;
+	
+	/**
+	 * Stores the name of this controller to prevent overhead.
+	 * 
+	 * @var string
+	 */
+	protected $_name = '';
+	
+	/**
+	 * Request object used by this controller.
+	 * 
+	 * @var MVCLite_Request
+	 */
+	protected $_request;
+	
+	/**
+	 * Determines if the view is used.
+	 * 
+	 * @var boolean
+	 */
+	protected $_view = true;
+	
+	/**
+	 * Instance of a view.
+	 * 
+	 * @var MVCLite_View
+	 */
+	protected $_viewObject;
+	
+	/**
+	 * Returns the name of the controller.
+	 * 
+	 * This method is useful for some other methods. Since the
+	 * controller-name stored in the request-object is not consistent
+	 * enough this method returns always the correct name.
+	 * 
+	 * @return string
+	 */
+	protected function _getControllerName ()
+	{
+		if($this->_name == '')
+		{
+			$refl = new ReflectionObject($this);
+			$this->_name = substr($refl->getName(), 0, -strlen(self::SUFFIX));
+		}
+		
+		return $this->_name;
+	}
+	
+	/**
+	 * Checks whether the controller has the specified action.
+	 * 
+	 * The result is the correct method-name (if one exists).
+	 * 
+	 * @param string $action action to check (without suffix)
+	 * @return string
+	 * @throws MVCLite_Controller_Exception
+	 */
+	protected function _hasAction ($action)
+	{
+		$action = strtolower($action);
+		
+		if(in_array($action . self::SUFFIX_ACTION, get_class_methods($this)))
+		{
+			return $action . self::SUFFIX_ACTION;
+		}
+		
+		throw new MVCLite_Controller_Exception('Action "' . $action . '" does not exist');
+	}
+	
+	/**
+	 * Empty method which can be used to initialize the controller.
+	 */
+	protected function _init ()
+	{
+		;
+	}
+	
+	/**
+	 * This method dispatches the request.
+	 * 
+	 * It extracts the action from the request and calls the action
+	 * if it exists. If this is not the case a "MVCLite_Controller_Exception"
+	 * will be thrown. On security-issues an "MVCLite_Security_Exception"
+	 * is thrown instead.
+	 * Usually this method should return a MVCLite_View-object which contains
+	 * the data which is displayed later.
+	 * To finalize the request, the global-containers are synchronized.
+	 * 
+	 * @param MVCLite_Request $request request to dispatch
+	 * @return MVCLite_View
+	 * @throws MVCLite_Controller_Exception
+	 * @throws MVCLite_Security_Exception
+	 * @throws Exception
+	 */
+	final public function dispatch (MVCLite_Request $request)
+	{
+		$this->setRequest($request)
+			 ->_init();
+		$this->{$this->_hasAction($request->getAction())}();
+		$request->synchronize();
+		
+		if(!$this->isDisplayed())
+		{
+			require_once 'MVCLite/View/Empty.php';
+			return new MVCLite_View_Empty();
+		}
+		$view = $this->getView();
+		
+		if($this->isLayouted())
+		{
+			$view = $this->getLayout()->setView($view);
+		}
+		
+		return $view;
+	}
+	
+	/**
+	 * Returns the layout-object using lazy initialization.
+	 * 
+	 * @return MVCLite_View_Layout
+	 */
+	public function getLayout ()
+	{
+		if($this->_layoutObject == null)
+		{
+			$this->_layoutObject = new MVCLite_View_Layout();
+		}
+		
+		return $this->_layoutObject;
+	}
+	
+	/**
+	 * Loads and creates a model for this controller.
+	 * 
+	 * @return MVCLite_Model_Abstract
+	 */
+	public function getModel ()
+	{
+		if($this->_model == null)
+		{
+			$model = MVCLite_Loader::loadModel($this->_getControllerName());
+			$this->_model = new $model();
+		}
+		
+		return $this->_model;
+	}
+	
+	/**
+	 * Returns the request.
+	 * 
+	 * @return MVCLite_Request
+	 */
+	public function getRequest ()
+	{
+		return $this->_request;
+	}
+	
+	/**
+	 * Returns a view using lazy initialization.
+	 * 
+	 * If the view does not exist, a template fitting to the action
+	 * is set.
+	 * 
+	 * <code>
+	 * $controller = 'Foobar';
+	 * $action = 'bar';
+	 * // would set template "foobar/bar.phtml"
+	 * </code>
+	 * 
+	 * @return MVCLite_View
+	 */
+	public function getView ()
+	{
+		if($this->_viewObject == null)
+		{
+			$this->setView(new MVCLite_View());
+			$this->getView()
+				 ->setTemplate(strtolower($this->_getControllerName()) . '/' . 
+				 			   $this->getRequest()->getAction());		
+		}
+		
+		return $this->_viewObject;
+	}
+	
+	/**
+	 * Returns true when a view should be displayed.
+	 * 
+	 * @return boolean
+	 */
+	public function isDisplayed ()
+	{
+		return $this->_view;
+	}
+	
+	/**
+	 * Returns true if the layout should be used.
+	 * 
+	 * @return boolean
+	 */
+	public function isLayouted ()
+	{
+		return $this->_layout;
+	}
+	
+	/**
+	 * Sets a request.
+	 * 
+	 * @param MVCLite_Request $request new request
+	 * @return MVCLite_Controller_Abstract
+	 */
+	public function setRequest (MVCLite_Request $request)
+	{
+		$this->_request = $request;
+		
+		return $this;
+	}
+	
+	/**
+	 * Sets a view for this class.
+	 * 
+	 * @param MVCLite_View $view new view
+	 * @return MVCLite_Controller_Abstract
+	 */
+	public function setView (MVCLite_View $view)
+	{
+		$this->_viewObject = $view;
+		
+		return $this;
+	}
+	
+	/**
+	 * Determines whether the layout should be used or not.
+	 * 
+	 * Setting this to true implies that a view will be used.
+	 * 
+	 * @param boolean $layout true if the layout should be used
+	 * @return MVCLite_Controller_Abstract
+	 */
+	public function useLayout ($layout = true)
+	{
+		$this->_layout = (bool)$layout;
+		
+		if($layout)
+		{
+			return $this->useView(true);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Determines whether this controller should return a view.
+	 * 
+	 * @param boolean $view true if a view should be returned
+	 * @return MVCLite_Controller_Abstract
+	 */
+	public function useView ($view = true)
+	{
+		$this->_view = $view;
+		
+		if(!$view)
+		{
+			return $this->useLayout(false);
+		}
+		
+		return $this;
+	}
 }
 ?>
