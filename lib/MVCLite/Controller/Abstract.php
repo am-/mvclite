@@ -16,7 +16,21 @@ require_once 'MVCLite/View.php';
 require_once 'MVCLite/View/Layout.php';
 
 /**
+ * This is the abstract controller.
  * 
+ * The controller is the class which executes what the request
+ * says. It always returns a view, which can be displayed. In some
+ * cases empty views are returned.
+ * By notation every controller should end with "Controller" (self::SUFFIX)
+ * and every action should end with "Action" (self::SUFFIX_ACTION).
+ * Although these suffixes can be changed, this it not recommended.
+ * The controllers has to be stored in the MVCLITE_CONTROLLER-directory,
+ * which usually points to "/app/controllers". As filename you only have
+ * to take the classname plus ".php".
+ * 
+ * Before dispatching the _init-method is executed. Thereafter the
+ * corresponding action-method is executed. If this completed successfully
+ * a view is returned which can be rendered later.
  * 
  * @category   MVCLite
  * @package    Controller
