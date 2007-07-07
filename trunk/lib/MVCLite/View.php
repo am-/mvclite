@@ -112,6 +112,16 @@ class MVCLite_View
 	}
 	
 	/**
+	 * Renders the view.
+	 * 
+	 * @return string
+	 */
+	public function __toString ()
+	{
+		return $this->render();
+	}
+	
+	/**
 	 * Checks whether a variable-name is valid.
 	 * 
 	 * @param string $name name of the variable to prove
