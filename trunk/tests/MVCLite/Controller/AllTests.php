@@ -15,10 +15,10 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 require_once 'MVCLite/ControllerTest.php';
 
 /**
- * Runs all tests in the view-component.
+ * Runs all controller-tests.
  * 
  * @category   MVCLite
- * @package    View
+ * @package    Controller
  * @subpackage UnitTests
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
