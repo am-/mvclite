@@ -59,7 +59,11 @@ class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 		);
 		
 		$this->assertFalse(class_exists($class, false), 'Controller exists although it should not');
-		MVCLite_Loader::loadController($controller);
+		$this->assertEquals(
+			$class,
+			MVCLite_Loader::loadController($controller),
+			'loadController should return the class-name'
+		);
 		$this->assertTrue(class_exists($class, false), 'Controller could not be loaded');
 		
 		unlink($path);
@@ -120,7 +124,11 @@ class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 		);
 		
 		$this->assertFalse(class_exists($class, false), 'Model exists although it should not');
-		MVCLite_Loader::loadModel($model);
+		$this->assertEquals(
+			$class,
+			MVCLite_Loader::loadModel($model),
+			'loadModel should return the class-name'
+		);
 		$this->assertTrue(class_exists($class, false), 'Model could not be loaded');
 		
 		unlink($path);
