@@ -93,12 +93,18 @@ class MVCLite_Loader
 	/**
 	 * Loads a controller using the loadFile-method.
 	 * 
+	 * The result is the name of the class.
+	 * 
 	 * @param string $name name of the controller (without suffix)
+	 * @return string
 	 * @throws MVCLite_Loader_Exception
 	 */
 	public static function loadController ($name)
 	{
-		self::loadFile(MVCLITE_CONTROLLER . $name . self::getSuffix(self::CONTROLLER) . '.php');
+		$name .= self::getSuffix(self::CONTROLLER);
+		self::loadFile(MVCLITE_CONTROLLER . $name . '.php');
+		
+		return $name;
 	}
 	
 	/**
@@ -122,12 +128,18 @@ class MVCLite_Loader
 	/**
 	 * Loads a model using the loadFile-method.
 	 * 
+	 * The result is the name of the class.
+	 * 
 	 * @param string $name name of the model without suffix
+	 * @return string
 	 * @throws MVCLite_Loader_Exception
 	 */
 	public static function loadModel ($name)
 	{
-		self::loadFile(MVCLITE_MODEL . $name . self::getSuffix(self::MODEL) . '.php');
+		$name .= self::getSuffix(self::MODEL);
+		self::loadFile(MVCLITE_MODEL . $name . '.php');
+		
+		return $name;
 	}
 }
 ?>
