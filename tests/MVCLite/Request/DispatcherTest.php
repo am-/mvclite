@@ -78,6 +78,19 @@ class MVCLite_Request_DispatcherTest extends PHPUnit_Framework_TestCase
 			'Output is not correct'
 		);
 		
+		ob_start();
+		$dispatcher->dispatch(
+			$request->setController('Foo')
+		);
+		$result = ob_get_contents();
+		ob_end_clean();
+		
+		$this->assertEquals(
+			'foobar',
+			$result,
+			'Output is not correct'
+		);
+		
 		try
 		{
 			$dispatcher->dispatch(

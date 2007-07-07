@@ -52,19 +52,30 @@ class MVCLite_Request_Dispatcher
 	 * the information parsed are used to create the correct
 	 * controller, which is dispatched after then.
 	 * 
+	 * Result is the view that should be rendered.
+	 * 
 	 * There are some reasons for a failing dispatch-process. When the
 	 * requested controller does not exist a "MVCLite_Request_Dispatcher_Exception"
 	 * will be thrown. If the requested action does not exist a
 	 * "MVCLite_Controller_Exception" will be thrown.
 	 * 
-	 * @param string $url url to dispatch
-	 * @return boolean
+	 * @param string|MVCLite_Request $url url to dispatch
+	 * @return MVCLite_View|null
 	 * @throws MVCLite_Request_Dispatcher_Exception
 	 * @throws MVCLite_Controller_Exception
+	 * @throws Exception
 	 */
 	public function dispatch ($url)
 	{
-		$request = $this->getRoute()->parse($url);
+		if($url instanceof MVCLite_Request)
+		{
+			$request = $url;
+			$url = (string)$request;
+		}
+		else
+		{
+			$request = $this->getRoute()->parse($url);
+		}
 		
 		try
 		{
@@ -72,9 +83,8 @@ class MVCLite_Request_Dispatcher
 			$class = $request->getController() . MVCLite_Loader::getSuffix(MVCLite_Loader::CONTROLLER);
 			
 			$controller = new $class();
-			$controller->dispatch($request);
 			
-			return true;
+			return $controller->dispatch($request);
 		}
 		catch(MVCLite_Loader_Exception $e)
 		{
@@ -83,7 +93,7 @@ class MVCLite_Request_Dispatcher
 			);
 		}
 		
-		return false;
+		return null;
 	}
 	
 	/**
