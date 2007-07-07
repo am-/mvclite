@@ -25,5 +25,15 @@ abstract class MVCLite_Model_Abstract
 	 * Suffix for controller-classes.
 	 */
 	const SUFFIX = 'Model';
+	
+	/**
+	 * Returns the active database-adapter.
+	 * 
+	 * @return MVCLite_Db_Adaptable
+	 */
+	public function getDatabase ()
+	{
+		
+	}
 }
 ?>
