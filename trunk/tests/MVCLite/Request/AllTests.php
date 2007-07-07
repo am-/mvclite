@@ -51,6 +51,7 @@ class MVCLite_Request_AllTests
 		$suite->addTestSuite('MVCLite_RequestTest');
 		$suite->addTestSuite('MVCLite_Request_GlobalTest');
 		$suite->addTestSuite('MVCLite_Request_RouteTest');
+		$suite->addTestSuite('MVCLite_Request_DispatcherTest');
 		
 		return $suite;
 	}
