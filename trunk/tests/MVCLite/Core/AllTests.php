@@ -12,6 +12,7 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'MVCLiteTest.php';
 require_once 'MVCLite/LoaderTest.php';
 
 /**
@@ -47,6 +48,7 @@ class MVCLite_Core_AllTests
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Core tests');
 		
 		$suite->addTestSuite('MVCLite_LoaderTest');
+		$suite->addTestSuite('MVCLiteTest');
 		
 		return $suite;
 	}
