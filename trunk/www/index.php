@@ -23,14 +23,14 @@
 include_once 'config.php';
 
 /*
- * Lets the application dispatch.
+ * Dispatches the application.
  */
 require_once 'MVCLite.php';
 
 $start = microtime(true);
 
 $mvc = MVCLite::getInstance();
-echo $mvc->dispatch();
+echo $mvc->dispatch($_SERVER['REQUEST_URI']);
 
 echo "\n" . '<!-- ' . sprintf('%0.3f', microtime(true) - $start) . 's -->';
 ?>
