@@ -27,6 +27,10 @@ include_once 'config.php';
  */
 require_once 'MVCLite.php';
 
+$start = microtime(true);
+
 $mvc = MVCLite::getInstance();
 echo $mvc->dispatch();
+
+echo "\n" . '<!-- ' . sprintf('%0.3f', microtime(true) - $start) . 's -->';
 ?>
