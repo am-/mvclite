@@ -9,6 +9,8 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'MVCLite/Loader/Exception.php';
+
 /**
  * This class is used as loader in many occasions
  * 
@@ -92,6 +94,7 @@ class MVCLite_Loader
 	 * Loads a controller using the loadFile-method.
 	 * 
 	 * @param string $name name of the controller (without suffix)
+	 * @throws MVCLite_Loader_Exception
 	 */
 	public static function loadController ($name)
 	{
@@ -102,9 +105,17 @@ class MVCLite_Loader
 	 * Loads a file using include_once.
 	 * 
 	 * @param string $path file to load
+	 * @throws MVCLite_Loader_Exception
 	 */
 	public static function loadFile ($path)
 	{
+		if(!file_exists($path))
+		{
+			throw new MVCLite_Loader_Exception(
+				'File "' . $path . '" cannot be found'
+			);
+		}
+		
 		include_once $path;
 	}
 	
@@ -112,6 +123,7 @@ class MVCLite_Loader
 	 * Loads a model using the loadFile-method.
 	 * 
 	 * @param string $name name of the model without suffix
+	 * @throws MVCLite_Loader_Exception
 	 */
 	public static function loadModel ($name)
 	{
