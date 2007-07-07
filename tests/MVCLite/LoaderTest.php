@@ -11,6 +11,7 @@
 
 include 'setUp.php';
 require_once 'MVCLite/Loader.php';
+require_once 'MVCLite/Loader/Exception.php';
 
 /**
  * Unit-testing for MVCLite_Loader.
@@ -62,6 +63,19 @@ class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(class_exists($class, false), 'Controller could not be loaded');
 		
 		unlink($path);
+		
+		try
+		{
+			MVCLite_Loader::loadController('NotExisting');
+			$this->assertTrue(
+				false,
+				'Failed loading of controllers should produce MVCLite_Loader_Exceptions.'
+			);
+		}
+		catch (MVCLite_Loader_Exception $e)
+		{
+			;
+		}
 	}
 	
 	public function testFile ()
@@ -77,6 +91,19 @@ class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(defined($constant), 'Constant was not defined');
 		
 		unlink($file);
+		
+		try
+		{
+			MVCLite_Loader::loadFile('anyNonExistingFile.txt');
+			$this->assertTrue(
+				false,
+				'Failed loading of files should produce MVCLite_Loader_Exceptions.'
+			);
+		}
+		catch (MVCLite_Loader_Exception $e)
+		{
+			;
+		}
 	}
 	
 	public function testModel ()
@@ -97,6 +124,19 @@ class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(class_exists($class, false), 'Model could not be loaded');
 		
 		unlink($path);
+		
+		try
+		{
+			MVCLite_Loader::loadController('NonExistingModel');
+			$this->assertTrue(
+				false,
+				'Failed loading of models should produce MVCLite_Loader_Exceptions.'
+			);
+		}
+		catch (MVCLite_Loader_Exception $e)
+		{
+			;
+		}
 	}
 	
 	public function testSuffix ()
