@@ -79,9 +79,7 @@ class MVCLite_Request_Dispatcher
 		
 		try
 		{
-			MVCLite_Loader::loadController($request->getController());
-			$class = $request->getController() . MVCLite_Loader::getSuffix(MVCLite_Loader::CONTROLLER);
-			
+			$class = MVCLite_Loader::loadController($request->getController());
 			$controller = new $class();
 			
 			return $controller->dispatch($request);
