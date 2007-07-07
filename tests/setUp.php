@@ -9,6 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once dirname(__FILE__) . '/../www/config.php';
+require_once dirname(__FILE__) . '/constants.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 ?>
