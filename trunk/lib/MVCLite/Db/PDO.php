@@ -10,6 +10,7 @@
  */
 
 require_once 'MVCLite/Db/Adaptable.php';
+require_once 'MVCLite/Db/Exception.php';
 
 /**
  * This is the PDO-adapter which can be used by MVCLite.
@@ -76,7 +77,7 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	 */
 	protected function pdo ()
 	{
-		if($this->_pdo == null)
+		if(!$this->isConnected())
 		{
 			$class = new ReflectionClass('PDO');
 			$this->_pdo = $class->newInstanceArgs($this->_connection);
@@ -122,7 +123,26 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	 */
 	public function execute ($statement)
 	{
-		return $this->pdo()->execute($statement);
+		$stmt = $this->prepare($statement);
+		$stmt->execute();
+		
+		$result = $stmt->rowCount();
+		$info = $stmt->errorInfo();
+		
+		if($info != array('00000'))
+		{
+			throw new MVCLite_Db_Exception($info[1] . ': ' . $info[2]);
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * @see MVCLite_Db_Adaptable::isConnected()
+	 */
+	public function isConnected ()
+	{
+		return $this->_pdo != null;
 	}
 	
 	/**
@@ -156,7 +176,15 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	 */
 	public function query ($statement)
 	{
-		return $this->pdo()->query($statement);
+		$result = $this->pdo()->query($statement);
+		$info = $result->errorInfo();
+		
+		if($info != array('00000'))
+		{
+			throw new MVCLite_Db_Exception($info[1] . ': ' . $info[2]);
+		}
+		
+		return $result;
 	}
 	
 	/**
