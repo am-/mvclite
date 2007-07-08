@@ -11,12 +11,13 @@
 
 include 'setUp.php';
 require_once 'MVCLite.php';
+require_once 'MVCLite/Controller/Abstract.php';
 require_once 'MVCLite/Db/Exception.php';
 require_once 'MVCLite/Exception.php';
 require_once 'MVCLite/Loader.php';
-require_once 'MVCLite/Controller/Abstract.php';
 require_once 'MVCLite/Request.php';
 require_once 'MVCLite/Request/Route/Standard.php';
+require_once 'MVCLite/Security/Exception.php';
 require_once 'MVCLite/View.php';
 require_once 'MVCLite/View/Layout.php';
 
@@ -137,6 +138,10 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 			"	{\n" .
 			"		throw new MVCLite_Db_Exception('Database error');\n" .
 			"	}\n" .
+			"	public function securityAction ()\n" .
+			"	{\n" .
+			"		throw new MVCLite_Security_Exception('Security issue');\n" .
+			"	}\n" .
 			"}"
 		);
 		$request->setController(__CLASS__ . '2')
@@ -177,6 +182,16 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse(
 			$mvc->dispatch('/' . (string)$request)->getView()->render,
 			'Database error gets rendered'
+		);
+		
+		$request->setController(__CLASS__ . '2')
+				->setAction('security');
+		$this->assertTrue(
+			$this->compare(
+				$mvc->getSecurityIssue((string)$request),
+				$mvc->dispatch('/' . (string)$request)
+			),
+			'Thrown exception should produce a security-issue'
 		);
 		
 		unlink($path);

@@ -84,6 +84,7 @@ final class MVCLite
 		require_once 'MVCLite/Request/Dispatcher.php';
 		require_once 'MVCLite/Request/Dispatcher/Exception.php';
 		require_once 'MVCLite/Request/Route/Standard.php';
+		require_once 'MVCLite/Security/Exception.php';
 		
 		try
 		{
@@ -101,6 +102,10 @@ final class MVCLite
 		catch (MVCLite_Db_Exception $e)
 		{
 			$view = $this->getDatabaseError($url, $e);
+		}
+		catch (MVCLite_Security_Exception $e)
+		{
+			$view = $this->getSecurityIssue($url, $e);
 		}
 		catch (Exception $e)
 		{
@@ -233,6 +238,28 @@ final class MVCLite
 		}
 		
 		return self::$_instance;
+	}
+	
+	/**
+	 * Returns a view displaying a security issue.
+	 * 
+	 * @param string $url requested url
+	 * @param MVCLite_Exception $e exception containing some useful information
+	 * @return MVCLite_View
+	 */
+	public function getSecurityIssue ($url, MVCLite_Security_Exception $e = null)
+	{
+		require_once 'MVCLite/View/Layout.php';
+		
+		$view = new MVCLite_View_Layout();
+		$view->setView('_errors/security')
+			 ->title = 'Security issue';
+		
+		$subView = $view->getView();
+		$subView->requestUrl = $url;
+		$subView->exceptionObject = $e;
+		
+		return $view;
 	}
 	
 	/**
