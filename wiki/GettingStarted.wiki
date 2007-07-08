@@ -60,4 +60,5 @@ By default the controller tries to load a view fitting to the action.
 /foobar/bar/arg1.value_arg2.value2.html
 // will try to render "views/foobar/bar.phtml"
 }}}
-Creating a view is even simple. You only have to place a file in "/view/<controller>/<action>.phtml". It is important that the controller-name is lowercase. The action is also lowercase. In the phtml-file you can place your HTML, which will be displayed after dispatching the request. Normally a layout is wraps the content of the file, but this can be changed by using method in MVCLite_Controller_Abstract.
+
+Creating a view is even simpler. You only have to place a file in "/view/<controller>/<action>.phtml". It is important that the controller-name is lowercase. The action is also lowercase. In the phtml-file you can place your HTML, which will be displayed after dispatching the request. Normally a layout is wraps the content of the file, but this can be changed by using method in MVCLite_Controller_Abstract.
