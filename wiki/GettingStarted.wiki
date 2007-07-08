@@ -53,7 +53,7 @@ class NameController extends MVCLite_Controller_Abstract
 }
 }}}
 
-The "Name" can be replaced by every other name consisting of characters and digits. Please note that the first character is always capitalized while the rest is in lowercase.
+The "Name" can be replaced by every other name consisting of characters and digits. Please note that the first character is always capitalized while the rest is not capitalized.
 When omitting the controller in the URL the "IndexController" is taken instead. If the action is omitted, the "indexAction" is taken instead.
 
 Creating a view is even simple. You only have to place a file in "/view/<controller>/<action>.phtml". It is important that the controller-name is lowercase. The action is also lowercase. In the phtml-file you can place your HTML, which will be displayed after dispatching the request. Normally a layout is wraps the content of the file, but this can be changed by using method in MVCLite_Controller_Abstract.
