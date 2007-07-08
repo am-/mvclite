@@ -22,7 +22,7 @@ require_once 'MVCLite/View/Exception.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_ViewTest extends PHPUnit_Framework_TestCase
 {
@@ -142,6 +142,20 @@ class MVCLite_ViewTest extends PHPUnit_Framework_TestCase
 		{
 			$view->render('notExistingTemplate');
 			$this->assertTrue(false, 'Non existing template was rendered');
+		}
+		catch (MVCLite_View_Exception $e)
+		{
+			;
+		}
+		try
+		{
+			$view->setTemplate('notExistingTemplate');
+			
+			$this->assertEquals(
+				'',
+				(string)$view,
+				'Casting to a string with a non-existing template should return an empty string'
+			);
 		}
 		catch (MVCLite_View_Exception $e)
 		{

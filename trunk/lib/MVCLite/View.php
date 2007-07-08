@@ -27,7 +27,7 @@ require_once 'MVCLite/View/Exception.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_View
 {
@@ -118,7 +118,16 @@ class MVCLite_View
 	 */
 	public function __toString ()
 	{
-		return $this->render();
+		try
+		{
+			return $this->render();
+		}
+		catch (MVCLite_View_Exception $e)
+		{
+			trigger_error($e->getMessage(), E_USER_NOTICE);
+		}
+		
+		return '';
 	}
 	
 	/**
@@ -247,6 +256,7 @@ class MVCLite_View
 	 * 
 	 * @param string $file optional template-file
 	 * @return string
+	 * @throws MVCLite_View_Exception
 	 */
 	public function render ($file = '')
 	{
