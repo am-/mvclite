@@ -11,6 +11,7 @@
 
 include 'setUp.php';
 require_once 'MVCLite.php';
+require_once 'MVCLite/Db/Exception.php';
 require_once 'MVCLite/Exception.php';
 require_once 'MVCLite/Loader.php';
 require_once 'MVCLite/Controller/Abstract.php';
@@ -71,6 +72,19 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		$request->setController(ucfirst(strtolower(__CLASS__)));
 		
 		$this->assertTrue(
+			$mvc->display(true)->isDisplayed(),
+			'Display-method does not function correctly'
+		);
+		$this->assertFalse(
+			$mvc->display(false)->isDisplayed(),
+			'Display-method does not function correctly'
+		);
+		$this->assertFalse(
+			$mvc->display()->isDisplayed(),
+			'Display-method does not function correctly'
+		);
+		
+		$this->assertTrue(
 			$this->compare(
 				$mvc->get404((string)$request),
 				$mvc->dispatch('/' . (string)$request)
@@ -119,6 +133,10 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 			"	{\n" .
 			"		throw new MVCLite_Exception('General error');\n" .
 			"	}\n" .
+			"	public function errorAction ()\n" .
+			"	{\n" .
+			"		throw new MVCLite_Db_Exception('Database error');\n" .
+			"	}\n" .
 			"}"
 		);
 		$request->setController(__CLASS__ . '2')
@@ -129,6 +147,36 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Thrown exception should produce a general error'
+		);
+		$mvc->display(true);
+		$this->assertTrue(
+			$mvc->dispatch('/' . (string)$request)->getView()->render,
+			'General error gets not rendered'
+		);
+		$mvc->display(false);
+		$this->assertFalse(
+			$mvc->dispatch('/' . (string)$request)->getView()->render,
+			'General error gets rendered'
+		);
+		
+		$request->setController(__CLASS__ . '2')
+				->setAction('error');
+		$this->assertTrue(
+			$this->compare(
+				$mvc->getDatabaseError((string)$request),
+				$mvc->dispatch('/' . (string)$request)
+			),
+			'Thrown exception should produce a database error'
+		);
+		MVCLite_Db::getInstance()->display(true);
+		$this->assertTrue(
+			$mvc->dispatch('/' . (string)$request)->getView()->render,
+			'Database error gets not rendered'
+		);
+		MVCLite_Db::getInstance()->display(false);
+		$this->assertFalse(
+			$mvc->dispatch('/' . (string)$request)->getView()->render,
+			'Database error gets rendered'
 		);
 		
 		unlink($path);
