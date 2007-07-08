@@ -60,8 +60,16 @@ interface MVCLite_Db_Adaptable
 	 * 
 	 * @param string $statement sql-statement to execute
 	 * @return integer
+	 * @throws MVCLite_Db_Exception
 	 */
 	public function execute ($statement);
+	
+	/**
+	 * Checks whether a connection already exists.
+	 * 
+	 * @return boolean
+	 */
+	public function isConnected ();
 	
 	/**
 	 * Returns the id of the last inserted record.
@@ -92,6 +100,7 @@ interface MVCLite_Db_Adaptable
 	 * 
 	 * @param string $statement statment to perform
 	 * @return PDOStatement
+	 * @throws MVCLite_Db_Exception
 	 */
 	public function query ($statement);
 	
