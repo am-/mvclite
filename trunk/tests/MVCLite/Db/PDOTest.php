@@ -117,6 +117,12 @@ class MVCLite_Db_PDOTest extends PHPUnit_Framework_TestCase
 		);
 		
 		$this->assertEquals(
+			'\'foo\\"bar\'',
+			$mysql->quote('foo"bar'),
+			'Quote failed'
+		);
+		
+		$this->assertEquals(
 			2,
 			$mysql->execute('DELETE FROM foobar WHERE 1'),
 			'One row should be deleted'
