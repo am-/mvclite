@@ -38,7 +38,7 @@ require_once 'MVCLite/Request/Global/Synchronizable.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 {
@@ -220,6 +220,24 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	public function getController ()
 	{
 		return $this->_controller;
+	}
+	
+	/**
+	 * Returns a parameter.
+	 * 
+	 * @param string $name name of parameter to return
+	 * @return mixed
+	 */
+	public function getParam ($name)
+	{
+		$params = $this->getParams();
+		
+		if(!isset($params[$name]))
+		{
+			return null;
+		}
+		
+		return $params[$name];
 	}
 	
 	/**

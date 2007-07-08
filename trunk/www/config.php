@@ -25,6 +25,7 @@ define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
  */
 $paths = explode(PATH_SEPARATOR, get_include_path());
 $paths[] = MVCLITE_LIB;
+$paths[] = MVCLITE_APP;
 
 foreach($paths as $key => $path)
 {
