@@ -12,25 +12,20 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/Controller/AllTests.php';
-require_once 'MVCLite/Core/AllTests.php';
-require_once 'MVCLite/Db/AllTests.php';
-require_once 'MVCLite/Model/AllTests.php';
-require_once 'MVCLite/Request/AllTests.php';
-require_once 'MVCLite/View/AllTests.php';
+require_once 'MVCLite/ModelTest.php';
 
 /**
- * Runs all tests.
+ * Runs all tests in the model-component.
  * 
  * @category   MVCLite
- * @package    Core
+ * @package    Model
  * @subpackage UnitTests
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-class AllTests
+class MVCLite_Model_AllTests
 {
 	/**
 	 * Runs the tests.
@@ -49,14 +44,9 @@ class AllTests
 	 */
 	public static function suite ()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('MVCLite - All tests');
+		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Model tests');
 		
-		$suite->addTest(MVCLite_Controller_AllTests::suite());
-		$suite->addTest(MVCLite_Core_AllTests::suite());
-		$suite->addTest(MVCLite_Db_AllTests::suite());
-		$suite->addTest(MVCLite_Model_AllTests::suite());
-		$suite->addTest(MVCLite_Request_AllTests::suite());
-		$suite->addTest(MVCLite_View_AllTests::suite());
+		$suite->addTestSuite('MVCLite_ModelTest');
 		
 		return $suite;
 	}
