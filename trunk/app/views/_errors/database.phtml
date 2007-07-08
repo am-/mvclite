@@ -1,0 +1,5 @@
+General error while requesting <em><?= $this->requestUrl ?></em>.
+<br />
+<? if($this->render): ?>
+	<?= nl2br($this->exceptionObject->getTraceAsString()); ?>
+<? endif; ?>

@@ -49,6 +49,19 @@ class MVCLite_DbTest extends PHPUnit_Framework_TestCase
 			get_class($db->setAdapter(new MVCLite_Db_PDO('unimportant'))->getAdapter()),
 			'Class of set adapter does not match'
 		);
+		
+		$this->assertTrue(
+			$db->display(true)->isDisplayed(),
+			'Display-method does not function correctly'
+		);
+		$this->assertFalse(
+			$db->display(false)->isDisplayed(),
+			'Display-method does not function correctly'
+		);
+		$this->assertFalse(
+			$db->display()->isDisplayed(),
+			'Display-method does not function correctly'
+		);
 	}
 }
 ?>
