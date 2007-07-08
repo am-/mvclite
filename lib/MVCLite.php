@@ -45,6 +45,13 @@ final class MVCLite
 	private $_base;
 	
 	/**
+	 * Determines whether database-errors should be displayed.
+	 * 
+	 * @var boolean
+	 */
+	private $_display = false;
+	
+	/**
 	 * Instance of this class.
 	 * 
 	 * @var MVCLite
@@ -73,6 +80,7 @@ final class MVCLite
 	public function dispatch ($url)
 	{
 		require_once 'MVCLite/Controller/Exception.php';
+		require_once 'MVCLite/Db/Exception.php';
 		require_once 'MVCLite/Request/Dispatcher.php';
 		require_once 'MVCLite/Request/Dispatcher/Exception.php';
 		require_once 'MVCLite/Request/Route/Standard.php';
@@ -90,12 +98,29 @@ final class MVCLite
 		{
 			$view = $this->get404($url, $e);
 		}
+		catch (MVCLite_Db_Exception $e)
+		{
+			$view = $this->getDatabaseError($url, $e);
+		}
 		catch (Exception $e)
 		{
 			$view = $this->getGeneralError($url, $e);
 		}
 		
 		return $view;
+	}
+	
+	/**
+	 * Determines whether errors should be displayed.
+	 * 
+	 * @param boolean $display true when errors should be displayed
+	 * @return MVCLite
+	 */
+	public function display ($display = false)
+	{
+		$this->_display = (bool)$display;
+		
+		return $this;
 	}
 	
 	/**
@@ -148,13 +173,37 @@ final class MVCLite
 	}
 	
 	/**
+	 * Returns a view representing a database error.
+	 * 
+	 * @param string $url url that was request
+	 * @param MVCLite_Db_Exception $e catched database-error
+	 * @return MVCLite_View
+	 */
+	public function getDatabaseError ($url, MVCLite_Db_Exception $e = null)
+	{
+		require_once 'MVCLite/Db.php';
+		require_once 'MVCLite/View/Layout.php';
+		
+		$view = new MVCLite_View_Layout();
+		$view->setView('_errors/database')
+			 ->title = 'Database error';
+		
+		$subView = $view->getView();
+		$subView->render = MVCLite_Db::getInstance()->isDisplayed();
+		$subView->requestUrl = $url;
+		$subView->execptionObject = $e;
+		
+		return $view;
+	}
+	
+	/**
 	 * Returns a view displaying a general error.
 	 * 
 	 * @param string $url requested url
 	 * @param MVCLite_Exception $e exception containing some useful information
 	 * @return MVCLite_View
 	 */
-	public function getGeneralError ($url, MVCLite_Exception $e = null)
+	public function getGeneralError ($url, Exception $e = null)
 	{
 		require_once 'MVCLite/View/Layout.php';
 		
@@ -163,6 +212,7 @@ final class MVCLite
 			 ->title = 'General error';
 		
 		$subView = $view->getView();
+		$subView->render = $this->isDisplayed();
 		$subView->requestUrl = $url;
 		$subView->exceptionObject = $e;
 		
@@ -183,6 +233,16 @@ final class MVCLite
 		}
 		
 		return self::$_instance;
+	}
+	
+	/**
+	 * Returns true when errors should be displayed.
+	 * 
+	 * @return boolean
+	 */
+	public function isDisplayed ()
+	{
+		return $this->_display;
 	}
 }
 ?>
