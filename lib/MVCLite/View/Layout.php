@@ -31,7 +31,7 @@ require_once 'MVCLite/View/Exception.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_View_Layout extends MVCLite_View
 {
@@ -127,6 +127,7 @@ class MVCLite_View_Layout extends MVCLite_View
 	 * 
 	 * @param string $file optional template-file to parse
 	 * @return string
+	 * @throws MVCLite_View_Exception
 	 */
 	public function render ($file = '')
 	{
