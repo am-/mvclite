@@ -12,6 +12,7 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'MVCLite/DbTest.php';
 require_once 'MVCLite/Db/PDOTest.php';
 
 /**
@@ -46,6 +47,7 @@ class MVCLite_Db_AllTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Database tests');
 		
+		$suite->addTestSuite('MVCLite_DbTest');
 		$suite->addTestSuite('MVCLite_Db_PDOTest');
 		
 		return $suite;
