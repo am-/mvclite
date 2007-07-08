@@ -28,13 +28,13 @@ These snippets enable you to rewrite your URI and use the standard-route for MVC
 
 {{{
 /foobar/bar/arg1.value1_arg2.value2.html
-// will create the controller "controllers/FoobarController" and calls its method "barAction"
+// will create the controller "FoobarController" and calls its method "barAction"
 // the arguments can be accessed inside the controller-action
 }}}
 
 For a full understanding of the standard-route you should read the documentation of MVCLite_Request_Route_Standard which gives you much information about that topic.
 
-To create a controller place a file "NameController.php" into your controller-directory (usually "/app/controllers/") and create a class named "NameController" which extends "MVCLite_Controller_Abstract". The base class should be loaded as well.
+To create a controller "NameController" place a file "NameController.php" into your controller-directory (usually "/app/controllers/") and create a class named "NameController" which extends "MVCLite_Controller_Abstract". The base class should be loaded as well.
 
 {{{
 // content of "/app/controllers/NameController.php"
