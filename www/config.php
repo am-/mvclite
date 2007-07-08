@@ -37,4 +37,42 @@ foreach($paths as $key => $path)
 }
 
 set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
+
+/*
+ * Most essential configurations are done here.
+ */
+
+switch ($profile)
+{
+	default:
+	case 'development':
+		// set error-levels
+		error_reporting(E_ALL);
+		ini_set('display_errors', 'On');
+		
+		// setting up database
+		require_once 'MVCLite/Db.php';
+		require_once 'MVCLite/Db/PDO.php';
+		
+		MVCLite_Db::getInstance()
+				  ->setAdapter(new MVCLite_Db_PDO('mysql:host=localhost;dbname=mvclite', 'root'))
+				  ->display(true);
+		
+		require_once 'MVCLite.php';
+		MVCLite::getInstance()->display(true);
+		
+		break;
+		
+	case 'production':
+		// set error-levels
+		ini_set('display_errors', 'Off');
+		
+		break;
+		
+	case 'test':
+		// set error-levels
+		ini_set('display_errors', 'Off');
+		
+		break;
+}
 ?>
