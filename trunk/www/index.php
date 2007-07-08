@@ -20,14 +20,15 @@
  * @version    $Id:$
  */
 
+$start = microtime(true);
+
+$profile = 'development';
 include_once 'config.php';
 
 /*
  * Dispatches the application.
  */
 require_once 'MVCLite.php';
-
-$start = microtime(true);
 
 $mvc = MVCLite::getInstance();
 echo $mvc->dispatch($_SERVER['REQUEST_URI']);
