@@ -1,0 +1,39 @@
+#summary Explains how to getting started with MVCLite
+
+= Introduction =
+
+Since one of the main-goals of MVCLite is to be easily understandable, this page explains how to get started. It is recommended to be familiar with the MVC-Pattern, although it is not stringently required.
+
+= Details =
+
+The first thing is to get the URL rewritten. If you use Apache HTTPd you can apply following code to a .htaccess-file in your "www"-directory.
+
+{{{
+RewriteEngine on
+RewriteRule ^js/(.*) public/$1 [L]
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+RewriteRule ^(.*) index.php
+}}}
+
+If you use Lighttpd place this snippet to your config:
+
+{{{
+url.rewrite-once = ( ".*\.(js|ico|gif|jpg|png|css)$" => "$0", "" => "/index.php")
+}}}
+
+These snippets enable you to rewrite your URI and use the standard-route for MVCLite. I.e. that the URLs are rewritten for causes of transparency, elegance and optimization.
+
+{{{
+/foobar/bar/arg1.value1_arg2.value2.html
+// will create the controller "controllers/FoobarController" and calls its method "barAction"
+// the arguments can be accessed inside the controller-action
+}}}
+
+For a full understanding of the standard-route you should read the documentation of MVCLite_Request_Route_Standard which gives you much information about that topic.
+
+By default the controller tries to load a view fitting to the action.
+
+{{{
+/foobar/bar/arg1.value_arg2.value2.html
+// will try to render "views/foobar/bar.phtml"
+}}}
