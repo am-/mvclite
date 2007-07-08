@@ -34,6 +34,13 @@ class MVCLite_Db
 	private $_adapter;
 	
 	/**
+	 * Determines whether database-errors should be displayed.
+	 * 
+	 * @var boolean
+	 */
+	private $_display = false;
+	
+	/**
 	 * Returns the instance of this class.
 	 * 
 	 * @var MVCLite_Db
@@ -46,6 +53,19 @@ class MVCLite_Db
 	private function __construct ()
 	{
 		;
+	}
+	
+	/**
+	 * Determines whether errors should be displayed.
+	 * 
+	 * @param boolean $display true when errors should be displayed
+	 * @return MVCLite_Db
+	 */
+	public function display ($display = false)
+	{
+		$this->_display = (bool)$display;
+		
+		return $this;
 	}
 	
 	/**
@@ -79,6 +99,16 @@ class MVCLite_Db
 		}
 		
 		return self::$_instance;
+	}
+	
+	/**
+	 * Returns true when errors should be displayed.
+	 * 
+	 * @return boolean
+	 */
+	public function isDisplayed ()
+	{
+		return $this->_display;
 	}
 	
 	/**
