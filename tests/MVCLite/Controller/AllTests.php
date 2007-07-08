@@ -25,7 +25,7 @@ require_once 'MVCLite/ControllerTest.php';
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:$
  */
-class MVCLite_View_AllTests
+class MVCLite_Controller_AllTests
 {
 	/**
 	 * Runs the tests.

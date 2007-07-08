@@ -12,9 +12,11 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'MVCLite/Controller/AllTests.php';
 require_once 'MVCLite/Core/AllTests.php';
-require_once 'MVCLite/View/AllTests.php';
+require_once 'MVCLite/Db/AllTests.php';
 require_once 'MVCLite/Request/AllTests.php';
+require_once 'MVCLite/View/AllTests.php';
 
 /**
  * Runs all tests.
@@ -48,9 +50,11 @@ class AllTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - All tests');
 		
-		$suite->addTest(MVCLite_View_AllTests::suite());
+		$suite->addTest(MVCLite_Controller_AllTests::suite());
 		$suite->addTest(MVCLite_Core_AllTests::suite());
+		$suite->addTest(MVCLite_Db_AllTests::suite());
 		$suite->addTest(MVCLite_Request_AllTests::suite());
+		$suite->addTest(MVCLite_View_AllTests::suite());
 		
 		return $suite;
 	}
