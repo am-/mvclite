@@ -9,8 +9,13 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'MVCLite/Db.php';
+
 /**
+ * The base-model defines some useful methods.
  * 
+ * Firstly it is able to fetch the used database-object. Many
+ * useful features are added in the future.
  * 
  * @category   MVCLite
  * @package    Model
@@ -30,10 +35,11 @@ abstract class MVCLite_Model_Abstract
 	 * Returns the active database-adapter.
 	 * 
 	 * @return MVCLite_Db_Adaptable
+	 * @throws MVCLite_Db_Exception
 	 */
 	public function getDatabase ()
 	{
-		
+		return MVCLite_Db::getInstance()->getAdapter();
 	}
 }
 ?>
