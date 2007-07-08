@@ -30,6 +30,17 @@ class MVCLite_Db_PDOTest extends PHPUnit_Framework_TestCase
 	{
 		// TODO: Add tests for transactions.
 		
+		try
+		{
+			$mysql = new MVCLite_Db_PDO('mysql:host=foobar;dbname=__mvclite', 'root', '');
+			$mysql->quote('foobar');
+			$this->assertTrue(false, 'On connection-failure a exception should be thrown.');
+		}
+		catch (MVCLite_Db_Exception $e)
+		{
+			;
+		}
+		
 		$mysql = new MVCLite_Db_PDO('mysql:host=localhost;dbname=__mvclite', 'root', '');
 		
 		$this->assertFalse(

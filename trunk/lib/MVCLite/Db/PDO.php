@@ -74,13 +74,21 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	 * needed.
 	 * 
 	 * @return PDO
+	 * @throws MVCLite_Db_Exception
 	 */
 	protected function pdo ()
 	{
 		if(!$this->isConnected())
 		{
-			$class = new ReflectionClass('PDO');
-			$this->_pdo = $class->newInstanceArgs($this->_connection);
+			try
+			{
+				$class = new ReflectionClass('PDO');
+				$this->_pdo = $class->newInstanceArgs($this->_connection);
+			}
+			catch (PDOException $e)
+			{
+				throw new MVCLite_Db_Exception($e->getMessage(), $e->getCode());
+			}
 		}
 		
 		return $this->_pdo;
