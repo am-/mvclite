@@ -9,22 +9,22 @@ Since there are many litte projects I had to code, I did not want to give up my 
 
 Most of my habits, which I consider as useful, got in this project. In the following I will list most of these.
 
-* light-weight implementation of the MVC-pattern
-* easy to test
- * Use of  many abstractions allow it to create a clean test-environment
-* stable
- * each class is tested using the principle of unit-testing
-* good documentation
- * each class is documented
- * documentation describes nearly every feature of the subject
-* predicatability
- * due to the light-weigth design and documentation becomes the behaviour transparent and therefore predicatable
-* good performance
- * reduction to really required features and possibly abstractions for later support saves time
-* good interoperability
- * abstraction and transparency simplify the use in other applications
-* integratable in other framework
- * from a specified size it makes sense to use a more sophisticated framework
- * the integration in other frameworks should be simplified by use of bridges
- * the number of required adaptions should be minimal
- * refactoring should be only optimization for the new framework
+ * light-weight implementation of the MVC-pattern
+ * easy to test
+  * Use of  many abstractions allow it to create a clean test-environment
+ * stable
+  * each class is tested using the principle of unit-testing
+ * good documentation
+  * each class is documented
+  * documentation describes nearly every feature of the subject
+ * predicatability
+  * due to the light-weigth design and documentation becomes the behaviour transparent and  therefore predicatable
+ * good performance
+  * reduction to really required features and possibly abstractions for later support  saves time
+ * good interoperability
+  * abstraction and transparency simplify the use in other applications
+ * integratable in other framework
+  * from a specified size it makes sense to use a more sophisticated framework
+  * the integration in other frameworks should be simplified by use of bridges
+  * the number of required adaptions should be minimal
+  * refactoring should be only optimization for the new framework
