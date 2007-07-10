@@ -9,7 +9,7 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-MVCLite_Loader::loadClass('MVCLite/Loader/Exception.php');
+require_once 'MVCLite/Loader/Exception.php';
 
 /**
  * This class is used as loader in many occasions
@@ -41,20 +41,6 @@ class MVCLite_Loader
 	const CONTROLLER = 2;
 	
 	/**
-	 * Determines whether an autoloader should be used.
-	 * 
-	 * @var boolean
-	 */
-	private static $_autoload = false;
-	
-	/**
-	 * Callback for the autoloader.
-	 * 
-	 * @var array
-	 */
-	private static $_callback = array(self, 'loadClass');
-	
-	/**
 	 * Formats a class-name to a filename (without suffix).
 	 * 
 	 * @param string $class name of the class to format
@@ -63,16 +49,6 @@ class MVCLite_Loader
 	private static function _format ($class)
 	{
 		return str_replace('_', '/', $class);
-	}
-	
-	/**
-	 * Loads a class using the autoloader.
-	 * 
-	 * @param string $class class which is required
-	 */
-	private static function _load ($class)
-	{
-		include self::_format($class) . '.php';
 	}
 	
 	/**
@@ -101,30 +77,17 @@ class MVCLite_Loader
 	}
 	
 	/**
-	 * Returns whether the autoloader is registered.
-	 * 
-	 * @return boolean
-	 */
-	public static function isRegistered ()
-	{
-		return self::$_autoload;
-	}
-	
-	/**
 	 * Loads a class at runtime.
 	 * 
 	 * This method only uses the include_path which may save
-	 * performance. Due to the use of MVCLite_Loader::loadClass(, the application
+	 * performance. Due to the use of require_once, the application
 	 * stops if the class cannot be found.
 	 * 
 	 * @param string $name name of the class
 	 */
 	public static function loadClass ($name)
 	{
-		if(!self::isRegistered())
-		{
-			MVCLite_Loader::loadClass( self::_format($name) . '.php';
-		}
+		require_once self::_format($name) . '.php';
 	}
 	
 	/**
@@ -177,40 +140,6 @@ class MVCLite_Loader
 		self::loadFile(MVCLITE_MODEL . $name . '.php');
 		
 		return $name;
-	}
-	
-	/**
-	 * Registers the class as autoloader.
-	 * 
-	 * @return boolean
-	 */
-	public static function register ()
-	{
-		if(self::isRegistered())
-		{
-			return false;
-		}
-		
-		self::$_autoload = spl_autoload_register(self::$_callback);
-		
-		return self::isRegisterd();
-	}
-	
-	/**
-	 * Unregisters this class as autoloader.
-	 * 
-	 * @return boolean
-	 */
-	public static function unregister ()
-	{
-		if(!self::isRegistered())
-		{
-			return false;
-		}
-		
-		self::$_autoload = spl_autoload_unregister(self::$_callback);
-		
-		return !self::isRegistered();
 	}
 }
 ?>
