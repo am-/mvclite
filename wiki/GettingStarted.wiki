@@ -1,4 +1,5 @@
 #summary Explains how to getting started with MVCLite
+#labels Featured,Phase-Deploy
 
 = Introduction =
 
