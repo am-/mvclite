@@ -10,6 +10,7 @@
  */
 
 include 'setUp.php';
+require_once 'MVCLite/Request.php';
 
 /**
  * Unit-testing for MVCLite_Request.
@@ -229,6 +230,8 @@ class UnitTestRoute implements MVCLite_Request_Route
 	}
 }
 
+require_once 'MVCLite/Request/Global.php';
+require_once 'MVCLite/Request/Global/Synchronizable.php';
 
 class UnitTestGlobal extends MVCLite_Request_Global implements MVCLite_Request_Global_Synchronizable
 {

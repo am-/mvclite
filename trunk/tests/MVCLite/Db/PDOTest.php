@@ -10,6 +10,8 @@
  */
 
 include 'setUp.php';
+require_once 'MVCLite/Db/Exception.php';
+require_once 'MVCLite/Db/PDO.php';
 
 /**
  * Unit-testing for the PDO-database adapter.

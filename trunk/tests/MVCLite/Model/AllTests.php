@@ -9,7 +9,10 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'MVCLite/ModelTest.php';
 
 /**
  * Runs all tests in the model-component.

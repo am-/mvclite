@@ -42,7 +42,7 @@ set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
 /*
  * Registers the autoloader.
  */
-require_once 'MVCLite/Loader.php';
+include 'MVCLite/Loader.php';
 MVCLite_Loader::register();
 
 /*
@@ -62,7 +62,7 @@ switch ($profile)
 				  ->setAdapter(new MVCLite_Db_PDO('mysql:host=localhost;dbname=mvclite', 'root'))
 				  ->display(true);
 		
-				MVCLite::getInstance()->display(true);
+		MVCLite::getInstance()->display(true);
 		
 		break;
 		

@@ -9,7 +9,11 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
 
+require_once 'MVCLite/ViewTest.php';
+require_once 'MVCLite/View/LayoutTest.php';
 
 /**
  * Runs all tests in the view-component.

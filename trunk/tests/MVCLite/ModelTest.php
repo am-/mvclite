@@ -10,6 +10,10 @@
  */
 
 include 'setUp.php';
+require_once 'MVCLite/Db.php';
+require_once 'MVCLite/Db/PDO.php';
+require_once 'MVCLite/Loader.php';
+require_once 'MVCLite/Model/Abstract.php';
 
 /**
  * Tests MVCLite_Model_Abstract.
