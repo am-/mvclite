@@ -28,7 +28,7 @@ Here is a short overview about features that will be integrated in later version
   * loading of files/classes
   * semantic methods for loading controllers and models
  * clean request-class (MVCLite_Request)
-  * decoupling from superglobals (objects represent these variables) (MVCLite_Request_Global_*)
+  * decoupling from superglobals (objects represent these variables) (MVCLite_Request_Global)
   * superglobals are synchronized after everything went okay (MVCLite_Request_Global_Dispatcher)
   * enables a clean environment for testing
  * own dispatcher (MVCLite_Request_Dispatcher)
