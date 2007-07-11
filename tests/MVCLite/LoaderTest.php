@@ -10,6 +10,8 @@
  */
 
 include 'setUp.php';
+require_once 'MVCLite/Loader.php';
+require_once 'MVCLite/Loader/Exception.php';
 
 /**
  * Unit-testing for MVCLite_Loader.
