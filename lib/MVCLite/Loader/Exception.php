@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Exception.php';
-
 /**
  * Exception which is used by the loader-class.
  * 

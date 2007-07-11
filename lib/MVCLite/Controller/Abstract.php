@@ -9,10 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Loader.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Security/Protectable.php';
-
 /**
  * This is the abstract controller.
  * 
@@ -116,8 +112,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if(!$this->isDisplayed())
 		{
-			require_once 'MVCLite/View/Empty.php';
-			return new MVCLite_View_Empty();
+						return new MVCLite_View_Empty();
 		}
 		
 		$view = $this->getView();
@@ -168,8 +163,7 @@ abstract class MVCLite_Controller_Abstract
 			return $action . self::SUFFIX_ACTION;
 		}
 		
-		require_once 'MVCLite/Controller/Exception.php';
-		
+				
 		throw new MVCLite_Controller_Exception('Action "' . $action . '" does not exist');
 	}
 	
@@ -210,8 +204,7 @@ abstract class MVCLite_Controller_Abstract
 		
 		$this->wasProtected();
 		
-		require_once 'MVCLite/Security/Exception.php';
-		throw new MVCLite_Security_Exception(
+				throw new MVCLite_Security_Exception(
 			'A security issue raised. You are not permitted to do that action.'
 		);
 	}
@@ -254,8 +247,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_layoutObject == null)
 		{
-			require_once 'MVCLite/View/Layout.php';
-			$this->_layoutObject = new MVCLite_View_Layout();
+						$this->_layoutObject = new MVCLite_View_Layout();
 		}
 		
 		return $this->_layoutObject;
@@ -305,8 +297,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_viewObject == null)
 		{
-			require_once 'MVCLite/View.php';
-			
+						
 			$this->setView(new MVCLite_View());
 			$this->getView()
 				 ->setTemplate(strtolower($this->_getControllerName()) . '/' . 

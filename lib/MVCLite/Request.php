@@ -9,17 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Request/Exception.php';
-require_once 'MVCLite/Request/Global.php';
-require_once 'MVCLite/Request/Route.php';
-require_once 'MVCLite/Request/Global/Cookie.php';
-require_once 'MVCLite/Request/Global/Get.php';
-require_once 'MVCLite/Request/Global/Post.php';
-require_once 'MVCLite/Request/Global/Request.php';
-require_once 'MVCLite/Request/Global/Server.php';
-require_once 'MVCLite/Request/Global/Session.php';
-require_once 'MVCLite/Request/Global/Synchronizable.php';
-
 /**
  * This class represents a request.
  * 

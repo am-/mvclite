@@ -10,5 +10,4 @@
  */
 
 require_once dirname(__FILE__) . '/constants.php';
-require_once 'PHPUnit/Framework/TestCase.php';
 ?>

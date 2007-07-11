@@ -10,13 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Controller/Abstract.php';
-require_once 'MVCLite/Controller/Exception.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Dispatcher.php';
-require_once 'MVCLite/Request/Dispatcher/Exception.php';
-require_once 'MVCLite/Request/Route.php';
-require_once 'MVCLite/Request/Route/Standard.php';
 
 /**
  * Unit-testing for every basic MVCLite_Request_Dispatcher.

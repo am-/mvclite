@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Controller/Abstract.php';
-
 /**
  * This interface defines method(s) required for protecting a controller.
  * 

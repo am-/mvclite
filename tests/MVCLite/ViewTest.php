@@ -10,8 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/View.php';
-require_once 'MVCLite/View/Exception.php';
 
 /**
  * Unit-testing for MVCLite_View.

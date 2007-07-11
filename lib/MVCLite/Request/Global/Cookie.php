@@ -9,9 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Request/Global.php';
-require_once 'MVCLite/Request/Global/Synchronizable.php';
-
 /**
  * This class represents the container for cookie-variables.
  * 

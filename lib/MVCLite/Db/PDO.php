@@ -9,9 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Db/Adaptable.php';
-require_once 'MVCLite/Db/Exception.php';
-
 /**
  * This is the PDO-adapter which can be used by MVCLite.
  * 

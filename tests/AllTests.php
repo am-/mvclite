@@ -9,16 +9,7 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/Controller/AllTests.php';
-require_once 'MVCLite/Core/AllTests.php';
-require_once 'MVCLite/Db/AllTests.php';
-require_once 'MVCLite/Model/AllTests.php';
-require_once 'MVCLite/Request/AllTests.php';
-require_once 'MVCLite/Security/AllTests.php';
-require_once 'MVCLite/View/AllTests.php';
 
 /**
  * Runs all tests.

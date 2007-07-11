@@ -9,7 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-
 /**
  * This class is used as loader in many occasions
  * 

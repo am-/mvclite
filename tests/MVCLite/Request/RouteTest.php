@@ -10,9 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Route.php';
-require_once 'MVCLite/Request/Route/Standard.php';
 
 /**
  * Unit-testing for every basic MVCLite_Request_Route-classes.

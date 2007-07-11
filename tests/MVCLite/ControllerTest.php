@@ -10,13 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Controller/Abstract.php';
-require_once 'MVCLite/Controller/Exception.php';
-require_once 'MVCLite/Loader.php';
-require_once 'MVCLite/Model/Abstract.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Route/Standard.php';
-require_once 'MVCLite/View.php';
 
 /**
  * Tests MVCLite_Controller_Abstract.
