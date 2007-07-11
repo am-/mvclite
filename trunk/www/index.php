@@ -28,8 +28,6 @@ include_once 'config.php';
 /*
  * Dispatches the application.
  */
-require_once 'MVCLite.php';
-
 $mvc = MVCLite::getInstance();
 echo $mvc->dispatch($_SERVER['REQUEST_URI']);
 

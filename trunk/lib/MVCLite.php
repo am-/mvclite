@@ -79,13 +79,7 @@ final class MVCLite
 	 */
 	public function dispatch ($url)
 	{
-		require_once 'MVCLite/Controller/Exception.php';
-		require_once 'MVCLite/Db/Exception.php';
-		require_once 'MVCLite/Request/Dispatcher.php';
-		require_once 'MVCLite/Request/Dispatcher/Exception.php';
-		require_once 'MVCLite/Request/Route/Standard.php';
-		require_once 'MVCLite/Security/Exception.php';
-		
+														
 		try
 		{
 			$dispatcher = new MVCLite_Request_Dispatcher(new MVCLite_Request_Route_Standard());
@@ -137,8 +131,7 @@ final class MVCLite
 	 */
 	public function get404 ($url, MVCLite_Exception $e = null)
 	{
-		require_once 'MVCLite/View/Layout.php';
-		
+				
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/404')
 			 ->title = '404 - Not Found';
@@ -186,9 +179,7 @@ final class MVCLite
 	 */
 	public function getDatabaseError ($url, MVCLite_Db_Exception $e = null)
 	{
-		require_once 'MVCLite/Db.php';
-		require_once 'MVCLite/View/Layout.php';
-		
+						
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/database')
 			 ->title = 'Database error';
@@ -210,8 +201,7 @@ final class MVCLite
 	 */
 	public function getGeneralError ($url, Exception $e = null)
 	{
-		require_once 'MVCLite/View/Layout.php';
-		
+				
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/general')
 			 ->title = 'General error';
@@ -249,8 +239,7 @@ final class MVCLite
 	 */
 	public function getSecurityIssue ($url, MVCLite_Security_Exception $e = null)
 	{
-		require_once 'MVCLite/View/Layout.php';
-		
+				
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/security')
 			 ->title = 'Security issue';

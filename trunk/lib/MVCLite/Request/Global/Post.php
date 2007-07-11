@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Request/Global.php';
-
 /**
  * This class represents the container for POST-variables.
  * 

@@ -9,9 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/View.php';
-require_once 'MVCLite/View/Exception.php';
-
 /**
  * This view-class represents views that should not be rendered.
  * 

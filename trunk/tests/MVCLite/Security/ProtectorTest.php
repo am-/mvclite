@@ -10,13 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Controller/Abstract.php';
-require_once 'MVCLite/Exception.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Route/Standard.php';
-require_once 'MVCLite/Security/Protectable.php';
-require_once 'MVCLite/Security/Protector.php';
-require_once 'MVCLite/Security/Exception.php';
 
 /**
  * Unit-testing for the protector.

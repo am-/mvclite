@@ -9,11 +9,7 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/DbTest.php';
-require_once 'MVCLite/Db/PDOTest.php';
 
 /**
  * Runs all tests in the core.

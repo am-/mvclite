@@ -9,9 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Route.php';
-
 /**
  * This is the default-route for the MVCLite-project.
  * 

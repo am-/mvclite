@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Db.php';
-
 /**
  * The base-model defines some useful methods.
  * 

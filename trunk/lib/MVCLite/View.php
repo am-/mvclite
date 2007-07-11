@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/View/Exception.php';
-
 /**
  * This is the basic view-object which is used for most views.
  * 

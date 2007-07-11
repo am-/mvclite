@@ -10,14 +10,6 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Request/Global.php';
-require_once 'MVCLite/Request/Global/Cookie.php';
-require_once 'MVCLite/Request/Global/Get.php';
-require_once 'MVCLite/Request/Global/Post.php';
-require_once 'MVCLite/Request/Global/Request.php';
-require_once 'MVCLite/Request/Global/Server.php';
-require_once 'MVCLite/Request/Global/Session.php';
-require_once 'MVCLite/Request/Global/Synchronizable.php';
 
 /**
  * Unit-testing for MVCLite_Global and descendants.

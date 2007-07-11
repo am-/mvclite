@@ -9,8 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Request/Exception.php';
-
 /**
  * Exception which is used within the dispatcher of the request-component of MVCLite.
  * 

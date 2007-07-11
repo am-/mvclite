@@ -9,10 +9,7 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/Security/ProtectorTest.php';
 
 /**
  * Runs all security-tests.
@@ -23,7 +20,7 @@ require_once 'MVCLite/Security/ProtectorTest.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_Security_AllTests
 {

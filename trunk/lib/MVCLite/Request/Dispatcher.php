@@ -9,11 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Loader.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Dispatcher/Exception.php';
-require_once 'MVCLite/Request/Route.php';
-
 /**
  * The dispatcher parses a request and proxies it to the controller.
  * 

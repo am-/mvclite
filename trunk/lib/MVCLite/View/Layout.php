@@ -9,9 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/View.php';
-require_once 'MVCLite/View/Exception.php';
-
 /**
  * This class is used to create a layout for the webpage.
  * 
