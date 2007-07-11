@@ -10,10 +10,8 @@
  */
 
 require_once 'MVCLite/Loader.php';
-require_once 'MVCLite/Controller/Exception.php';
 require_once 'MVCLite/Request.php';
-require_once 'MVCLite/View.php';
-require_once 'MVCLite/View/Layout.php';
+require_once 'MVCLite/Security/Protectable.php';
 
 /**
  * This is the abstract controller.
@@ -37,7 +35,7 @@ require_once 'MVCLite/View/Layout.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 abstract class MVCLite_Controller_Abstract
 {
@@ -105,6 +103,34 @@ abstract class MVCLite_Controller_Abstract
 	protected $_viewObject;
 	
 	/**
+	 * Returns the view which is displayed at the end.
+	 * 
+	 * Firstly it checks whether a view should be displayed. If not
+	 * it returns a "MVCLite_View_Empty"-object. Otherwise it returns
+	 * always a direct MVCLite_View, but when the view should be layouted,
+	 * this view is wrapped in "MVCLite_View_Layout"-object.
+	 * 
+	 * @return MVCLite_View
+	 */
+	final protected function _display ()
+	{
+		if(!$this->isDisplayed())
+		{
+			require_once 'MVCLite/View/Empty.php';
+			return new MVCLite_View_Empty();
+		}
+		
+		$view = $this->getView();
+		
+		if($this->isLayouted())
+		{
+			$view = $this->getLayout()->setView($view);
+		}
+		
+		return $view;
+	}
+	
+	/**
 	 * Returns the name of the controller.
 	 * 
 	 * This method is useful for some other methods. Since the
@@ -142,6 +168,8 @@ abstract class MVCLite_Controller_Abstract
 			return $action . self::SUFFIX_ACTION;
 		}
 		
+		require_once 'MVCLite/Controller/Exception.php';
+		
 		throw new MVCLite_Controller_Exception('Action "' . $action . '" does not exist');
 	}
 	
@@ -151,6 +179,41 @@ abstract class MVCLite_Controller_Abstract
 	protected function _init ()
 	{
 		;
+	}
+	
+	/**
+	 * Method used for protecting the controller.
+	 * 
+	 * Firstly it checks whether the object is protectable. If not,
+	 * false is returned immediately.
+	 * Otherwise a security-check is executed. In cases of denied
+	 * security-checks fallback-method of the Protectable-interface
+	 * is executed. If this method does not redirect to another page
+	 * or throw an own exception, a MVCLite_Security_Exception will
+	 * be thrown. This disables the developer to make mistakes in
+	 * the fallback-method which can cause security-lacks.
+	 * 
+	 * @return boolean
+	 * @throws MVCLite_Security_Exception
+	 */
+	final protected function _protect ()
+	{
+		if(!$this instanceof MVCLite_Security_Protectable)
+		{
+			return false;
+		}
+		
+		if($this->getProtector()->protect($this, $this->getRequest()->getAction()))
+		{
+			return true;
+		}
+		
+		$this->wasProtected();
+		
+		require_once 'MVCLite/Security/Exception.php';
+		throw new MVCLite_Security_Exception(
+			'A security issue raised. You are not permitted to do that action.'
+		);
 	}
 	
 	/**
@@ -174,22 +237,12 @@ abstract class MVCLite_Controller_Abstract
 	{
 		$this->setRequest($request)
 			 ->_init();
+		$this->_protect();
 		$this->{$this->_hasAction($request->getAction())}();
+		
 		$request->synchronize();
 		
-		if(!$this->isDisplayed())
-		{
-			require_once 'MVCLite/View/Empty.php';
-			return new MVCLite_View_Empty();
-		}
-		$view = $this->getView();
-		
-		if($this->isLayouted())
-		{
-			$view = $this->getLayout()->setView($view);
-		}
-		
-		return $view;
+		return $this->_display();
 	}
 	
 	/**
@@ -201,6 +254,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_layoutObject == null)
 		{
+			require_once 'MVCLite/View/Layout.php';
 			$this->_layoutObject = new MVCLite_View_Layout();
 		}
 		
@@ -251,6 +305,8 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_viewObject == null)
 		{
+			require_once 'MVCLite/View.php';
+			
 			$this->setView(new MVCLite_View());
 			$this->getView()
 				 ->setTemplate(strtolower($this->_getControllerName()) . '/' . 
