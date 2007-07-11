@@ -22,7 +22,7 @@ require_once 'MVCLite/Loader/Exception.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 class MVCLite_LoaderTest extends PHPUnit_Framework_TestCase
 {

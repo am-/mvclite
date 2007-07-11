@@ -27,7 +27,7 @@ require_once 'MVCLite/Security/Exception.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id: DbTest.php 59 2007-07-08 08:19:43Z andre.moelle $
+ * @version    $Id$
  */
 class MVCLite_Security_ProtectorTest extends PHPUnit_Framework_TestCase
 {
