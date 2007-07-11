@@ -19,7 +19,7 @@
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id:$
+ * @version    $Id$
  */
 final class MVCLite
 {
@@ -35,7 +35,7 @@ final class MVCLite
 	 * 
 	 * @const string
 	 */
-	const VERSION = '0.1.0-dev';
+	const VERSION = '0.1.1-dev';
 	
 	/**
 	 * Contains the base-url.
