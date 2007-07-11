@@ -8,7 +8,16 @@ Here is a short overview about features that will be integrated in later version
 = Details =
 
 *Version 0.1.1*:
-
+ * security-features
+  * use of protectors (MVCLite_Security_Protector) which protect the controller-actions
+ * improvements for the controller
+  * shutdown-hook
+  * integration with the protectors (MVCLite_Security_Protectable)
+  * implementation of action-helpers, which enable doing some operations independent from controlelers
+ * dispatcher improvements
+  * implementation of plugins, which apply recurring operations on the specified controller
+ * view additions
+  * implementation of view-helpers, which encapsulate solutions of recurring problems
 
 *~~Version 0.1.0~~*:
  * minimal Controller-implementation (MVCLite_Controller_Abstract)
