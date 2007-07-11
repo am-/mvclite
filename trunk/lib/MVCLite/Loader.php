@@ -9,7 +9,6 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
-require_once 'MVCLite/Loader/Exception.php';
 
 /**
  * This class is used as loader in many occasions
@@ -140,6 +139,25 @@ class MVCLite_Loader
 		self::loadFile(MVCLITE_MODEL . $name . '.php');
 		
 		return $name;
+	}
+	
+	/**
+	 * Registers the autoloader.
+	 * 
+	 * If there already exists a __autoload, it is appended to the
+	 * spl_autoloader.
+	 * 
+	 * @see http://de.php.net/manual/en/function.spl-autoload-register.php
+	 * @return boolean
+	 */
+	public static function register ()
+	{
+		if(function_exists('__autoload'))
+		{
+			spl_autoload_register('__autoload');
+		}
+		
+		return spl_autoload_register(array(__CLASS__, 'loadClass'));
 	}
 }
 ?>
