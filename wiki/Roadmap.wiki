@@ -1,0 +1,36 @@
+#summary Displays which features are implemented in future.
+#labels Featured,Phase-Design
+
+= Introduction =
+
+Here is a short overview about features that will be integrated in later versions. Additionally, the old planned features are listed too, to create something like a history.
+
+= Details =
+
+*Version 0.1.1*:
+
+
+*~~Version 0.1.0~~*:
+ * minimal Controller-implementation (MVCLite_Controller_Abstract)
+  * init-hooks
+  * integration with different kinds of view (layout, empty, normal)
+  * use of actions
+ * minimal Model-implementation (MVCLite_Model_Abstract)
+ * View-implementation
+  * Layout-view (MVCLite_View_Layout)
+  * normal view (MVCLite_View)
+  * empty view (MVCLite_View_Empty)
+ * database-abstraction 
+  * using PDO as default adapter (MVCLite_Db_PDO)
+  * interface defining most basic methods => easy integration for other databases or frameworks (MVCLite_Db_Adaptable)
+  * global point for changing the database-adapter (MVCLite_Db)
+ * class-loader (MVCLite_Loader)
+  * loading of files/classes
+  * semantic methods for loading controllers and models
+ * clean request-class (MVCLite_Request)
+  * decoupling from superglobals (objects represent these variables) (MVCLite_Request_Global_*)
+  * superglobals are synchronized after everything went okay (MVCLite_Request_Global_Dispatcher)
+  * enables a clean environment for testing
+ * own dispatcher (MVCLite_Request_Dispatcher)
+  * search-engine friendly (default) URL-schema (MVCLite_Request_Route_Standard)
+  * other schemas can be added easily (MVCLite_Request_Route)
