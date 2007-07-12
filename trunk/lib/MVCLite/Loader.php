@@ -50,6 +50,18 @@ class MVCLite_Loader
 	}
 	
 	/**
+	 * Static method for autoloading.
+	 * 
+	 * Uses include instead of require_once which fastens the loading.
+	 * 
+	 * @param string $class class to load
+	 */
+	private static function _load ($class)
+	{
+		include str_replace('_', '/', $class) . '.php';
+	}
+	
+	/**
 	 * Returns the suffix for controllers.
 	 *
 	 * @param string $type  
@@ -156,7 +168,7 @@ class MVCLite_Loader
 			spl_autoload_register('__autoload');
 		}
 		
-		return spl_autoload_register(array(__CLASS__, 'loadClass'));
+		return spl_autoload_register(array(__CLASS__, '_load'));
 	}
 }
 ?>
