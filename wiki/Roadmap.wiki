@@ -21,6 +21,10 @@ Here is a short overview about features that will be integrated in later version
    * rewrite action, controller and arguments to a URL
    * prepend the base-url to some other links
  * new route for webserver unable to rewrite the urls
+ * implementation of database-specific tables
+  * very basic CRUD-methods
+  * integration with the record-classes
+ * value-object for records
 
 *~~Version 0.1.0~~*:
  * minimal Controller-implementation (MVCLite_Controller_Abstract)
