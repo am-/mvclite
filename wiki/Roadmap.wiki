@@ -13,11 +13,13 @@ Here is a short overview about features that will be integrated in later version
  * improvements for the controller
   * shutdown-hook
   * integration with the protectors (MVCLite_Security_Protectable)
-  * implementation of action-helpers, which enable doing some operations independent from controlelers
+  * implementation of action-helpers, which enable doing some operations independent from controllers
  * dispatcher improvements
   * implementation of plugins, which apply recurring operations on the specified controller
  * view additions
   * implementation of view-helpers, which encapsulate solutions of recurring problems
+   * rewrite action, controller and arguments to a URL
+   * prepend the base-url to some other links
  * new route for webserver unable to rewrite the urls
 
 *~~Version 0.1.0~~*:
