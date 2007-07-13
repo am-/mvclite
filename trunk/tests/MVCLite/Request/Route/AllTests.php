@@ -12,13 +12,10 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/RequestTest.php';
-require_once 'MVCLite/Request/GlobalTest.php';
-require_once 'MVCLite/Request/DispatcherTest.php';
-require_once 'MVCLite/Request/Dispatcher/PluginTest.php';
+require_once 'MVCLite/Request/Route/StandardTest.php';
 
 /**
- * Runs all tests in the request-component.
+ * Runs all route-tests.
  * 
  * @category   MVCLite
  * @package    Request
@@ -26,9 +23,9 @@ require_once 'MVCLite/Request/Dispatcher/PluginTest.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id: AllTests.php 107 2007-07-13 20:52:28Z andre.moelle $
  */
-class MVCLite_Request_AllTests
+class MVCLite_Request_Route_AllTests
 {
 	/**
 	 * Runs the tests.
@@ -47,14 +44,9 @@ class MVCLite_Request_AllTests
 	 */
 	public static function suite ()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Request tests');
+		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Route tests');
 		
-		$suite->addTest(MVCLite_Request_Route_AllTests::suite());
-		
-		$suite->addTestSuite('MVCLite_RequestTest');
-		$suite->addTestSuite('MVCLite_Request_GlobalTest');
-		$suite->addTestSuite('MVCLite_Request_DispatcherTest');
-		$suite->addTestSuite('MVCLite_Request_Dispatcher_PluginTest');
+		$suite->addTestSuite('MVCLite_Request_Route_StandardTest');
 		
 		return $suite;
 	}
