@@ -19,6 +19,11 @@
  * the views.
  * To improve flexibility you can also define your own suffix for template
  * files.
+ * View-helpers can be called by using $this->nameofhelper in the template.
+ * The name of the helper shoud only consist of non-capitalized letters.
+ * Normal assignment of variables and fetching of these variables is done
+ * by calling the property directly. This is provided because this class
+ * uses the magic methods __get and __set.
  * 
  * @category   MVCLite
  * @package    View
@@ -69,6 +74,18 @@ class MVCLite_View
 	public function __construct ($template = '')
 	{
 		$this->setTemplate($template);
+	}
+	
+	/**
+	 * This magic method delegates some calls to the helpers.
+	 * 
+	 * @param string $method name of the method to call
+	 * @param array $arguments arguments used for the call
+	 * @return mixed
+	 */
+	public function __call ($method, $arguments)
+	{
+		return MVCLite_View_Helper_Registry::getInstance()->call($method, $arguments);
 	}
 	
 	/**
