@@ -105,10 +105,18 @@ class MVCLite_Request_Dispatcher
 			
 			try
 			{
+				$registry = MVCLite_Request_Dispatcher_Plugin_Registry::getInstance();
 				$class = MVCLite_Loader::loadController($request->getController());
 				$controller = new $class();
 				
-				return $controller->dispatch($request);
+				$registry->initialize($controller);
+				$registry->preProcess();
+				
+				$result = $controller->dispatch($request);
+				
+				$registry->postProcess();
+				
+				return $result;
 			}
 			catch (MVCLite_Request_Dispatcher_Redirect $e)
 			{
