@@ -14,6 +14,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/View/HelperTest.php';
 require_once 'MVCLite/View/Helper/PrependTest.php';
+require_once 'MVCLite/View/Helper/UrlTest.php';
 
 /**
  * Runs all helper-tests.
@@ -49,6 +50,7 @@ class MVCLite_View_Helper_AllTests
 		
 		$suite->addTestSuite('MVCLite_View_HelperTest');
 		$suite->addTestSuite('MVCLite_View_Helper_PrependTest');
+		$suite->addTestSuite('MVCLite_View_Helper_UrlTest');
 		
 		return $suite;
 	}
