@@ -41,6 +41,35 @@ class MVCLite_Request_Dispatcher
 	}
 	
 	/**
+	 * This method applies dirty data to the new request.
+	 * 
+	 * That means that globals are not cleant and their input can ergo
+	 * be used for the new request. The new request is returned thereafter.
+	 * 
+	 * @param MVCLite_Request $request contains data from the old request
+	 * @param string $url url of the new request
+	 * @return MVCLite_Request
+	 */
+	private function _applyDirty (MVCLite_Request $request, $url)
+	{
+		$content = array();
+		
+		foreach($request->getGlobals() as $name => $global)
+		{
+			$content[$name] = $global->getChildren();
+		}
+		
+		$result = $this->getRoute()->parse($url);
+		
+		foreach($result->getGlobals() as $name => $global)
+		{
+			$global->set($content[$name]);
+		}
+		
+		return $result;
+	}
+	
+	/**
 	 * Dispatches the request.
 	 * 
 	 * Firstly the URL is parsed to a request-object. Thereafter
@@ -62,28 +91,48 @@ class MVCLite_Request_Dispatcher
 	 */
 	public function dispatch ($url)
 	{
-		if($url instanceof MVCLite_Request)
+		while(true)
 		{
-			$request = $url;
-			$url = (string)$request;
-		}
-		else
-		{
-			$request = $this->getRoute()->parse($url);
-		}
-		
-		try
-		{
-			$class = MVCLite_Loader::loadController($request->getController());
-			$controller = new $class();
+			if($url instanceof MVCLite_Request)
+			{
+				$request = $url;
+				$url = (string)$request;
+			}
+			else
+			{
+				$request = $this->getRoute()->parse($url);
+			}
 			
-			return $controller->dispatch($request);
-		}
-		catch(MVCLite_Loader_Exception $e)
-		{
-			throw new MVCLite_Request_Dispatcher_Exception(
-				'Controller "' . $request->getController() . '" was not found'
-			);
+			try
+			{
+				$class = MVCLite_Loader::loadController($request->getController());
+				$controller = new $class();
+				
+				return $controller->dispatch($request);
+			}
+			catch (MVCLite_Request_Dispatcher_Redirect $e)
+			{
+				$url = $e->getMessage();
+				$code = $e->getCode();
+				
+				switch ($code)
+				{
+					case MVCLite_Request_Dispatcher_Redirect::EXTERNAL:
+						header('Location: ' . MVCLite::getInstance()->getBaseUrl() . $url);
+						exit;
+					
+					case MVCLite_Request_Dispatcher_Redirect::DIRTY:
+						$url = $this->_applyDirty($request, $url);
+						
+						break;
+				}
+			}
+			catch (MVCLite_Loader_Exception $e)
+			{
+				throw new MVCLite_Request_Dispatcher_Exception(
+					'Controller "' . $request->getController() . '" was not found'
+				);
+			}
 		}
 		
 		return null;
