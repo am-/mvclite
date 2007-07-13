@@ -35,7 +35,7 @@ class MVCLite_Request_Global_Session extends MVCLite_Request_Global implements M
 	 */
 	protected function __construct ($content = null)
 	{
-		if(!defined('PHPUnit_MAIN_METHOD'))
+		if(PHP_SAPI != 'cli')
 		{
 			session_start();
 		}
