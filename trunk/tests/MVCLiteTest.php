@@ -196,5 +196,38 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		
 		unlink($path);
 	}
+	
+	public function testRoute ()
+	{
+		$mvc = MVCLite::getInstance();
+		
+		$this->assertEquals(
+			'MVCLite_Request_Route_Standard',
+			get_class($mvc->getRoute())
+		);
+		$this->assertEquals(
+			$mvc,
+			$mvc->setRoute(new MVCLiteTestRoute())
+		);
+		$this->assertEquals(
+			'MVCLiteTestRoute',
+			get_class($mvc->getRoute())
+		);
+		$mvc->setRoute(new MVCLite_Request_Route_Standard());
+	}
+}
+
+// require classes for testing
+class MVCLiteTestRoute implements MVCLite_Request_Route
+{
+	public function assemble (MVCLite_Request $request)
+	{
+		return 'foo';
+	}
+	
+	public function parse ($string)
+	{
+		return new MVCLite_Request($this);
+	}
 }
 ?>
