@@ -10,12 +10,9 @@
  */
 
 include 'setUp.php';
-require_once 'MVCLite/Request.php';
-require_once 'MVCLite/Request/Route.php';
-require_once 'MVCLite/Request/Route/Standard.php';
 
 /**
- * Unit-testing for every basic MVCLite_Request_Route-classes.
+ * Tests the default-route.
  * 
  * @category   MVCLite
  * @package    Request
@@ -23,9 +20,9 @@ require_once 'MVCLite/Request/Route/Standard.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id: RouteTest.php 84 2007-07-11 21:50:48Z andre.moelle $
  */
-class MVCLite_Request_RouteTest extends PHPUnit_Framework_TestCase
+class MVCLite_Request_Route_StandardTest extends PHPUnit_Framework_TestCase
 {
 	public function compare (MVCLite_Request $obj, MVCLite_Request $obj2)
 	{
@@ -40,8 +37,8 @@ class MVCLite_Request_RouteTest extends PHPUnit_Framework_TestCase
 		
 		return true;
 	}
-	
-	public function testStandardAssemble ()
+
+	public function testAssembler ()
 	{
 		$route = new MVCLite_Request_Route_Standard();
 		$request = new MVCLite_Request($route);
@@ -138,7 +135,7 @@ class MVCLite_Request_RouteTest extends PHPUnit_Framework_TestCase
 		);
 	}
 	
-	public function testStandardParse ()
+	public function testParser ()
 	{
 		$route = new MVCLite_Request_Route_Standard();
 		$request = new MVCLite_Request($route);
