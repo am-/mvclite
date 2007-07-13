@@ -212,6 +212,16 @@ class MVCLite_Request implements MVCLite_Request_Global_Synchronizable
 	}
 	
 	/**
+	 * Returns all globals.
+	 * 
+	 * @return array
+	 */
+	public function getGlobals ()
+	{
+		return $this->_globals;
+	}
+	
+	/**
 	 * Returns a parameter.
 	 * 
 	 * @param string $name name of parameter to return

@@ -112,7 +112,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if(!$this->isDisplayed())
 		{
-						return new MVCLite_View_Empty();
+			return new MVCLite_View_Empty();
 		}
 		
 		$view = $this->getView();
@@ -163,7 +163,6 @@ abstract class MVCLite_Controller_Abstract
 			return $action . self::SUFFIX_ACTION;
 		}
 		
-				
 		throw new MVCLite_Controller_Exception('Action "' . $action . '" does not exist');
 	}
 	
@@ -204,8 +203,50 @@ abstract class MVCLite_Controller_Abstract
 		
 		$this->wasProtected();
 		
-				throw new MVCLite_Security_Exception(
+		throw new MVCLite_Security_Exception(
 			'A security issue raised. You are not permitted to do that action.'
+		);
+	}
+	
+	/**
+	 * This method allows to redirect.
+	 * 
+	 * You have to assign controller, action and arguments and
+	 * probably the modus of redirection. Otherwise the default
+	 * values are used instead. The redirection is done by using
+	 * an exeception. This causes that the code after the
+	 * redirection is not executed.
+	 * 
+	 * There are some different modi for redirection. See more
+	 * in the exception MVCLite_Request_Dispatcher_Redirect. To
+	 * sum it up, a short description:
+	 * 
+	 * <code>
+	 * default (0)
+	 * -> clean internal redirection
+	 * MVCLite_Request_Dispatcher_Redirect::EXTERNAL (1)
+	 * -> redirects to another URL using the Location-header
+	 * MVCLite_Request_Dispatcher_Redirect::DIRTY (2)
+	 * -> does not delete set data in the globals
+	 * </code>
+	 * 
+	 * @param string $controller destination controller
+	 * @param string $action destination action
+	 * @param array $arguments destination arguments
+	 * @param integer $modus type of redirection
+	 * @throws MVCLite_Request_Dispatcher_Redirect
+	 */
+	final protected function _redirect ($controller = 'Index',
+										$action = 'index',
+										array $arguments = array(),
+										$modus = 0)
+	{
+		throw new MVCLite_Request_Dispatcher_Redirect(
+			(string)$this->getRequest()
+						 ->setController($controller)
+						 ->setAction($action)
+						 ->setParams($arguments),
+			$modus
 		);
 	}
 	
@@ -256,7 +297,7 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_layoutObject == null)
 		{
-						$this->_layoutObject = new MVCLite_View_Layout();
+			$this->_layoutObject = new MVCLite_View_Layout();
 		}
 		
 		return $this->_layoutObject;
@@ -306,7 +347,6 @@ abstract class MVCLite_Controller_Abstract
 	{
 		if($this->_viewObject == null)
 		{
-						
 			$this->setView(new MVCLite_View());
 			$this->getView()
 				 ->setTemplate(strtolower($this->_getControllerName()) . '/' . 
