@@ -210,6 +210,14 @@ abstract class MVCLite_Controller_Abstract
 	}
 	
 	/**
+	 * Method which is called after dispatching a request.
+	 */
+	protected function _shutdown ()
+	{
+		;
+	}
+	
+	/**
 	 * This method dispatches the request.
 	 * 
 	 * It extracts the action from the request and calls the action
@@ -232,6 +240,7 @@ abstract class MVCLite_Controller_Abstract
 			 ->_init();
 		$this->_protect();
 		$this->{$this->_hasAction($request->getAction())}();
+		$this->_shutdown();
 		
 		$request->synchronize();
 		
