@@ -16,6 +16,7 @@ require_once 'MVCLite/RequestTest.php';
 require_once 'MVCLite/Request/GlobalTest.php';
 require_once 'MVCLite/Request/RouteTest.php';
 require_once 'MVCLite/Request/DispatcherTest.php';
+require_once 'MVCLite/Request/Dispatcher/PluginTest.php';
 
 /**
  * Runs all tests in the core.
@@ -53,6 +54,7 @@ class MVCLite_Request_AllTests
 		$suite->addTestSuite('MVCLite_Request_GlobalTest');
 		$suite->addTestSuite('MVCLite_Request_RouteTest');
 		$suite->addTestSuite('MVCLite_Request_DispatcherTest');
+		$suite->addTestSuite('MVCLite_Request_Dispatcher_PluginTest');
 		
 		return $suite;
 	}
