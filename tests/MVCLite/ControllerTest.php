@@ -83,6 +83,10 @@ class MVCLite_ControllerTest extends PHPUnit_Framework_TestCase
 			$controller->initialized,
 			'Controller should have been initialized'
 		);
+		$this->assertTrue(
+			$controller->shutdown,
+			'Controller was not shutdown properly'
+		);
 		
 		$newRequest = new MVCLite_Request(new MVCLite_Request_Route_Standard());
 		$this->assertEquals(
@@ -127,10 +131,16 @@ class MVCLite_ControllerTest extends PHPUnit_Framework_TestCase
 class ControllertestController extends MVCLite_Controller_Abstract
 {
 	public $initialized = false;
+	public $shutdown = false;
 	
 	protected function _init ()
 	{
 		$this->initialized = true;
+	}
+	
+	protected function _shutdown ()
+	{
+		$this->shutdown = true;
 	}
 	
 	public function emptyAction ()
