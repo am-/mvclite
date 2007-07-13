@@ -13,6 +13,7 @@ require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/ViewTest.php';
+require_once 'MVCLite/View/HelperTest.php';
 require_once 'MVCLite/View/LayoutTest.php';
 
 /**
@@ -48,6 +49,7 @@ class MVCLite_View_AllTests
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - View tests');
 		
 		$suite->addTestSuite('MVCLite_ViewTest');
+		$suite->addTestSuite('MVCLite_View_HelperTest');
 		$suite->addTestSuite('MVCLite_View_LayoutTest');
 		
 		return $suite;
