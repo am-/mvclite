@@ -28,6 +28,8 @@ These snippets enable you to rewrite your URI and use the standard-route for MVC
 == Setting up controllers ==
 
 {{{
+/<controller>/<action>/<arg1>.<value1>_<argn>.<valuen>.html
+// this is how a full URL can look like, an example follows
 /foobar/bar/arg1.value1_arg2.value2.html
 // will create the controller "FoobarController" and calls its method "barAction"
 // the arguments can be accessed inside the controller-action
