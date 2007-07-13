@@ -79,7 +79,6 @@ final class MVCLite
 	 */
 	public function dispatch ($url)
 	{
-														
 		try
 		{
 			$dispatcher = new MVCLite_Request_Dispatcher(new MVCLite_Request_Route_Standard());
