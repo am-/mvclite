@@ -59,11 +59,18 @@ final class MVCLite
 	private static $_instance;
 	
 	/**
+	 * Active route-object.
+	 * 
+	 * @var MVCLite_Request_Route
+	 */
+	private $_route;
+	
+	/**
 	 * Constructor makes the object ready and sends header.
 	 */
 	private function __construct ()
 	{
-		if(!defined('PHPUnit_MAIN_METHOD'))
+		if(PHP_SAPI != 'cli')
 		{
 			header('X-Powered-By: ' . self::NAME . ' ' . self::VERSION);
 		}
@@ -81,7 +88,7 @@ final class MVCLite
 	{
 		try
 		{
-			$dispatcher = new MVCLite_Request_Dispatcher(new MVCLite_Request_Route_Standard());
+			$dispatcher = new MVCLite_Request_Dispatcher($this->getRoute());
 			$view = $dispatcher->dispatch(substr($url, strlen($this->getBaseUrl())));
 		}
 		catch (MVCLite_Controller_Exception $e)
@@ -230,6 +237,21 @@ final class MVCLite
 	}
 	
 	/**
+	 * Returns the currently active route.
+	 * 
+	 * @return MVCLite_Request_Route
+	 */
+	public function getRoute ()
+	{
+		if($this->_route == null)
+		{
+			$this->_route = new MVCLite_Request_Route_Standard();
+		}
+		
+		return $this->_route;
+	}
+	
+	/**
 	 * Returns a view displaying a security issue.
 	 * 
 	 * @param string $url requested url
@@ -258,6 +280,19 @@ final class MVCLite
 	public function isDisplayed ()
 	{
 		return $this->_display;
+	}
+	
+	/**
+	 * Sets a new route.
+	 * 
+	 * @param MVCLite_Request_Route $route new route
+	 * @return MVCLite
+	 */
+	public function setRoute (MVCLite_Request_Route $route)
+	{
+		$this->_route = $route;
+		
+		return $this;
 	}
 }
 ?>
