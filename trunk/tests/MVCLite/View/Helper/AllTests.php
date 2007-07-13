@@ -12,12 +12,11 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/View/Helper/AllTests.php';
-require_once 'MVCLite/ViewTest.php';
-require_once 'MVCLite/View/LayoutTest.php';
+require_once 'MVCLite/View/HelperTest.php';
+require_once 'MVCLite/View/Helper/PrependTest.php';
 
 /**
- * Runs all tests in the view-component.
+ * Runs all helper-tests.
  * 
  * @category   MVCLite
  * @package    View
@@ -25,9 +24,9 @@ require_once 'MVCLite/View/LayoutTest.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id: AllTests.php 93 2007-07-13 09:39:03Z andre.moelle $
  */
-class MVCLite_View_AllTests
+class MVCLite_View_Helper_AllTests
 {
 	/**
 	 * Runs the tests.
@@ -46,12 +45,10 @@ class MVCLite_View_AllTests
 	 */
 	public static function suite ()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('MVCLite - View tests');
+		$suite = new PHPUnit_Framework_TestSuite('MVCLite - View-helper tests');
 		
-		$suite->addTestSuite('MVCLite_ViewTest');
-		$suite->addTestSuite('MVCLite_View_LayoutTest');
-		
-		$suite->addTest(MVCLite_View_Helper_AllTests::suite());
+		$suite->addTestSuite('MVCLite_View_HelperTest');
+		$suite->addTestSuite('MVCLite_View_Helper_PrependTest');
 		
 		return $suite;
 	}
