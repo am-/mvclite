@@ -12,7 +12,6 @@ The first thing is to get the URL rewritten. If you use Apache HTTPd you can app
 
 {{{
 RewriteEngine on
-RewriteRule ^js/(.*) public/$1 [L]
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
 RewriteRule ^(.*) index.php
 }}}
