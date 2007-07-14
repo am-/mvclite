@@ -13,6 +13,7 @@ require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/ControllerTest.php';
+require_once 'MVCLite/Controller/HelperTest.php';
 
 /**
  * Runs all controller-tests.
@@ -47,6 +48,7 @@ class MVCLite_Controller_AllTests
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Controller tests');
 		
 		$suite->addTestSuite('MVCLite_ControllerTest');
+		$suite->addTestSuite('MVCLite_Controller_HelperTest');
 		
 		return $suite;
 	}
