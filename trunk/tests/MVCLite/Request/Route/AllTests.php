@@ -13,6 +13,7 @@ require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/Request/Route/StandardTest.php';
+require_once 'MVCLite/Request/Route/ClassicTest.php';
 
 /**
  * Runs all route-tests.
@@ -47,6 +48,7 @@ class MVCLite_Request_Route_AllTests
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Route tests');
 		
 		$suite->addTestSuite('MVCLite_Request_Route_StandardTest');
+		$suite->addTestSuite('MVCLite_Request_Route_ClassicTest');
 		
 		return $suite;
 	}
