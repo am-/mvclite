@@ -10,6 +10,12 @@
  */
 
 /**
+ * This class stores helpers for the controllers.
+ * 
+ * The functionality is very similar to MVCLite_View_Helper_Registry.
+ * It provides methods for path-operations (such as adding, removing and
+ * retrieving). Additionally it supports the loading and retrieving of
+ * helpers.
  * 
  * @category   MVCLite
  * @package    Controller
