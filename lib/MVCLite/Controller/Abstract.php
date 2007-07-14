@@ -289,6 +289,24 @@ abstract class MVCLite_Controller_Abstract
 	}
 	
 	/**
+	 * Returns a helper with the specified name.
+	 * 
+	 * If no helper with that name exists a MVCLite_Controller_Helper_Exception
+	 * will be thrown.
+	 * 
+	 * @param string $name name of the helper to return
+	 * @return MVCLite_Controller_Helper_Abstract
+	 * @throws MVCLite_Controller_Helper_Exception
+	 */
+	public function getHelper ($name)
+	{
+		return 
+			MVCLite_Controller_Helper_Registry::getInstance()
+											  ->loadHelper($name)
+											  ->setController($this);
+	}
+	
+	/**
 	 * Returns the layout-object using lazy initialization.
 	 * 
 	 * @return MVCLite_View_Layout
