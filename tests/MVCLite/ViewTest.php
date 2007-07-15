@@ -151,11 +151,13 @@ class MVCLite_ViewTest extends PHPUnit_Framework_TestCase
 		{
 			$view->setTemplate('notExistingTemplate');
 			
+			error_reporting(0);
 			$this->assertEquals(
 				'',
 				(string)$view,
 				'Casting to a string with a non-existing template should return an empty string'
 			);
+			error_reporting(E_ALL);
 		}
 		catch (MVCLite_View_Exception $e)
 		{
