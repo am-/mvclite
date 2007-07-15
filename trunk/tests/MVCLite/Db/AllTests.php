@@ -14,6 +14,8 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'MVCLite/DbTest.php';
 require_once 'MVCLite/Db/PDOTest.php';
+require_once 'MVCLite/Db/RecordTest.php';
+require_once 'MVCLite/Db/TableTest.php';
 
 /**
  * Runs all tests in the core.
@@ -49,6 +51,8 @@ class MVCLite_Db_AllTests
 		
 		$suite->addTestSuite('MVCLite_DbTest');
 		$suite->addTestSuite('MVCLite_Db_PDOTest');
+		$suite->addTestSuite('MVCLite_Db_RecordTest');
+		$suite->addTestSuite('MVCLite_Db_TableTest');
 		
 		return $suite;
 	}
