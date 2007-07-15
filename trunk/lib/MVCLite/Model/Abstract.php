@@ -12,8 +12,11 @@
 /**
  * The base-model defines some useful methods.
  * 
- * Firstly it is able to fetch the used database-object. Many
- * useful features are added in the future.
+ * Firstly it is able to fetch the used database-object. Secondly
+ * it handles table-classes. You should create these table classes
+ * after construction. The use of table-classes allows you to
+ * make use of record-objects, validation and some other nice
+ * features.
  * 
  * @category   MVCLite
  * @package    Model
@@ -30,6 +33,43 @@ abstract class MVCLite_Model_Abstract
 	const SUFFIX = 'Model';
 	
 	/**
+	 * Array containing the tables this model uses.
+	 * 
+	 * @var array
+	 */
+	protected $_tables = array();
+	
+	/**
+	 * Attaches a table to the model.
+	 * 
+	 * @param string $alias alias of the table
+	 * @param MVCLite_Db_Table_Abstract $table table-class
+	 * @return MVCLite_Model_Abstract
+	 */
+	public function attachTable ($alias, MVCLite_Db_Table_Abstract $table)
+	{
+		$this->_tables[$alias] = $table;
+		
+		return $this;
+	}
+	
+	/**
+	 * Detaches a table from this model.
+	 * 
+	 * @param string $alias alias of the table
+	 * @return MVCLite_Model_Abstract
+	 */
+	public function detachTable ($alias)
+	{
+		if($this->hasTable($alias))
+		{
+			unset($this->_tables[$alias]);
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * Returns the active database-adapter.
 	 * 
 	 * @return MVCLite_Db_Adaptable
@@ -38,6 +78,39 @@ abstract class MVCLite_Model_Abstract
 	public function getDatabase ()
 	{
 		return MVCLite_Db::getInstance()->getAdapter();
+	}
+	
+	/**
+	 * Returns the table.
+	 * 
+	 * If the table does not exist, a MVCLite_Model_Exception will
+	 * be thrown.
+	 * 
+	 * @param string $alias alias of the table to return
+	 * @return MVCLite_Db_Table_Abstract
+	 * @throws MVCLite_Model_Exception
+	 */
+	public function getTable ($alias)
+	{
+		if(!$this->hasTable($alias))
+		{
+			throw new MVCLite_Model_Exception(
+				'Table with the alias "' . $alias . '" does not exist'
+			);
+		}
+		
+		return $this->_tables[$alias];
+	}
+	
+	/**
+	 * Checks whether a table with that alias exists.
+	 * 
+	 * @param string $alias alias of the table
+	 * @return boolean
+	 */
+	public function hasTable ($alias)
+	{
+		return isset($this->_tables[$alias]);
 	}
 }
 ?>

@@ -41,6 +41,61 @@ class MVCLite_ModelTest extends PHPUnit_Framework_TestCase
 			'Adapter and model-adapter do not match.'
 		);
 	}
+	
+	public function testTables ()
+	{
+		$model = new ModeltestModel();
+		
+		$foo = new UnitTest_ModelTest();
+		$bar = new UnitTest_ModelTest();
+		
+		$this->assertEquals(
+			$model,
+			$model->attachTable('foo', $foo)
+		);
+		$this->assertEquals(
+			$model,
+			$model->attachTable('bar', $bar)
+		);
+		
+		$this->assertTrue(
+			$model->hasTable('foo')
+		);
+		$this->assertFalse(
+			$model->hasTable('unknown')
+		);
+		
+		$this->assertEquals(
+			$foo,
+			$model->getTable('foo')
+		);
+		
+		try
+		{
+			$model->getTable('unknown');
+			$this->assertTrue(
+				false,
+				'If retrieving an unknown table a exception should be thrown'
+			);
+		}
+		catch (MVCLite_Model_Exception $e)
+		{
+			
+		}
+		
+		$this->assertEquals(
+			$model,
+			$model->detachTable('foo')
+		);
+		$this->assertFalse(
+			$model->hasTable('foo')
+		);
+		
+		$this->assertEquals(
+			$bar,
+			$model->getTable('bar')
+		);
+	}
 }
 
 /*
@@ -49,5 +104,49 @@ class MVCLite_ModelTest extends PHPUnit_Framework_TestCase
 class ModeltestModel extends MVCLite_Model_Abstract
 {
 	
+}
+
+
+class UnitTest_ModelTest extends MVCLite_Db_Table_Abstract
+{
+	public function delete ($id)
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function getColumns ()
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function getName ()
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function getPrimary ()
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function insert (array $input)
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function select ($id)
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function update (array $input, $id)
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
+	
+	public function validate (array $input)
+	{
+		throw new MVCLite_Db_Exception('This is not tested here.');
+	}
 }
 ?>
