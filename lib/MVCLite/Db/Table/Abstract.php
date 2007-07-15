@@ -30,7 +30,7 @@
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id: Adaptable.php 81 2007-07-11 10:40:58Z andre.moelle $
+ * @version    $Id$
  */
 abstract class MVCLite_Db_Table_Abstract
 {
