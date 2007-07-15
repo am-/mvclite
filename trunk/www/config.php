@@ -9,6 +9,10 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+/*
+ * Please adjust following paths to your needs.
+ */
+
 // directory which contains the MVCLite.php-file and the MVCLite-directory.
 define('MVCLITE_LIB', dirname(__FILE__) . '/../lib/');
 // base-directory of an app (mostly necessary for other constants)
@@ -22,6 +26,8 @@ define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
 
 /*
  * Adds new paths to the include-path.
+ * 
+ * Do not change this!
  */
 $paths = explode(PATH_SEPARATOR, get_include_path());
 $paths[] = MVCLITE_LIB;
@@ -41,14 +47,17 @@ set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
 
 /*
  * Registers the autoloader.
+ * 
+ * You should not edit this.
  */
 include 'MVCLite/Loader.php';
 MVCLite_Loader::register();
 
 /*
  * Most essential configurations are done here.
+ * 
+ * Please adjust the the following lines.
  */
-
 switch ($profile)
 {
 	default:
