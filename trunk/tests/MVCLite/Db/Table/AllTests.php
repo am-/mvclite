@@ -12,13 +12,10 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/DbTest.php';
-require_once 'MVCLite/Db/PDOTest.php';
-require_once 'MVCLite/Db/RecordTest.php';
-require_once 'MVCLite/Db/TableTest.php';
+require_once 'MVCLite/Db/Table/MySQLTest.php';
 
 /**
- * Runs all tests in the core.
+ * Runs all table-tests.
  * 
  * @category   MVCLite
  * @package    Db
@@ -26,9 +23,9 @@ require_once 'MVCLite/Db/TableTest.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id: AllTests.php 114 2007-07-15 09:49:37Z andre.moelle $
  */
-class MVCLite_Db_AllTests
+class MVCLite_Db_Table_AllTests
 {
 	/**
 	 * Runs the tests.
@@ -47,14 +44,9 @@ class MVCLite_Db_AllTests
 	 */
 	public static function suite ()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Database tests');
+		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Table tests');
 		
-		$suite->addTest(MVCLite_Db_Table_AllTests::suite());
-		
-		$suite->addTestSuite('MVCLite_DbTest');
-		$suite->addTestSuite('MVCLite_Db_PDOTest');
-		$suite->addTestSuite('MVCLite_Db_RecordTest');
-		$suite->addTestSuite('MVCLite_Db_TableTest');
+		$suite->addTestSuite('MVCLite_Db_Table_MySQLTest');
 		
 		return $suite;
 	}

@@ -77,6 +77,7 @@ abstract class MVCLite_Db_Table_Abstract
 	 * 
 	 * @param array|integer $id id of the entries to delete
 	 * @return integer
+	 * @throws MVCLite_Db_Exception
 	 */
 	abstract public function delete ($id);
 	
@@ -122,6 +123,7 @@ abstract class MVCLite_Db_Table_Abstract
 	 * 
 	 * @param array $input new inserted data
 	 * @return integer
+	 * @throws MVCLite_Db_Exception
 	 */
 	abstract public function insert (array $input);
 	
@@ -132,17 +134,26 @@ abstract class MVCLite_Db_Table_Abstract
 	 * can return more than one item. Each element of the array is
 	 * MVCLite_Db_Record-object.
 	 * 
+	 * <code>
+	 * $result = array(
+	 * 	42 => new MVCLite_Db_Record($this, array('primaryKey' => 42, 'content'  => 'foo')),
+	 * 	23 => new MVCLite_Db_Record($this, array('primaryKey' => 23, 'content'  => 'bar'))
+	 * );
+	 * </code>
+	 * 
 	 * @param array|integer $id value of the primary keys
 	 * @return array
+	 * @throws MVCLite_Db_Exception
 	 */
 	abstract public function select ($id);
 	
 	/**
-	 * Updates an item and returns whether the process was successful.
+	 * Updates one or more items and returns the number of updated rows.
 	 * 
 	 * @param array $input new input
-	 * @param integer $id id of the item to update
-	 * @return boolean
+	 * @param integer|array $id id of the item to update
+	 * @return integer
+	 * @throws MVCLite_Db_Exception
 	 */
 	abstract public function update (array $input, $id);
 	
