@@ -10,7 +10,7 @@
  */
 
 /**
- * 
+ * This class implements essential database-operations for MySQL.
  * 
  * @category   MVCLite
  * @package    Db
@@ -29,10 +29,10 @@ abstract class MVCLite_Db_Table_MySQL extends MVCLite_Db_Table_Abstract
 	 * along with parameter binding, since the binding works with
 	 * references instead of values.
 	 * 
-	 * @param PDOStatement $stmt statement which binds the parameters
+	 * @param PDOStatement|stdObject $stmt statement which binds the parameters
 	 * @param array $params parameter to bind
 	 */
-	protected function _bind (PDOStatement $stmt, array $params)
+	protected function _bind ($stmt, array $params)
 	{
 		$params = array_values($params);
 		
@@ -47,10 +47,10 @@ abstract class MVCLite_Db_Table_MySQL extends MVCLite_Db_Table_Abstract
 	 * 
 	 * If this requirement is met, an exception will be thrown.
 	 * 
-	 * @param PDOStatement $statement pdo-statement to check
+	 * @param PDOStatement|stdObject $statement pdo-statement to check
 	 * @throws MVCLite_Db_Exception
 	 */
-	protected function _check (PDOStatement $statement)
+	protected function _check ($statement)
 	{
 		$info = $statement->errorInfo();
 		
@@ -63,11 +63,11 @@ abstract class MVCLite_Db_Table_MySQL extends MVCLite_Db_Table_Abstract
 	/**
 	 * Binds parameters, executes the statement and checks for errors.
 	 * 
-	 * @param PDOStatement $statement statement to execute
+	 * @param PDOStatement|stdObject $statement statement to execute
 	 * @param array $params params that get binded
 	 * @throws MVCLite_Db_Exception
 	 */
-	protected function _execute (PDOStatement $statement, array $params)
+	protected function _execute ($statement, array $params)
 	{
 		$this->_bind($statement, $params);
 		$statement->execute();
