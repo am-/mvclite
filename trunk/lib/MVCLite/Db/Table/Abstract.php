@@ -128,6 +128,62 @@ abstract class MVCLite_Db_Table_Abstract
 	abstract public function insert (array $input);
 	
 	/**
+	 * Saves a record in the database.
+	 * 
+	 * This means that the record is either inserted or updated.
+	 * If the primary-key was not set, the record is always inserted.
+	 * On the other hand it is not necessary updated when the record
+	 * has a primary-key. If no record with the given primary key
+	 * exists, i.e. the update-operation failed, it is inserted
+	 * instead. When this also fails, an exception will be thrown.
+	 * Before interacting with the database the record is validated.
+	 * If the validation fails, an array with the errors is returned.
+	 * Otherwise an empty array is returned instead.
+	 * 
+	 * @param MVCLite_Db_Record $record record to save
+	 * @return array
+	 * @throws MVCLite_Db_Exception
+	 */
+	public function save (MVCLite_Db_Record $record)
+	{
+		$content = $record->get();
+		$result = $this->validate($content);
+		
+		if(count($result))
+		{
+			return $result;
+		}
+		
+		$primary = $record->getPrimary();
+		
+		if(($primary && $this->update($content, $primary))
+		   || $this->insert($content))
+		{
+			return array();
+		}
+		
+		throw new MVCLite_Db_Exception(
+			'Saving was not successful.'
+		);
+	}
+	
+	/**
+	 * Saves an array to the database.
+	 * 
+	 * This method is based on the save()-method, therefore you should
+	 * refer to the documentation of that method, to inform yourself.
+	 * 
+	 * @see MVCLite_Db_Table_Abstract::save()
+	 * @param array $array array to save
+	 * @return array
+	 * @throws MVCLite_Db_Exception
+	 */
+	public function saveArray (array $array)
+	{
+		return $this->save($this->fetchRecord($array));
+	}
+	
+	/**
 	 * Returns one or more items from the table.
 	 * 
 	 * The result is always an array, due to the fact that this class

@@ -94,11 +94,105 @@ class MVCLite_Db_TableTest extends PHPUnit_Framework_TestCase
 			$table->fetchRecord($array2)->get()
 		);
 	}
+	
+	public function testSave ()
+	{
+		$table = $this->getObject();
+		$record = $table->fetchRecord();
+		
+		// no primary
+		$table->state = 0;
+		$record->changePrimary(null);
+		$this->assertEquals(
+			array(),
+			$table->save($record)
+		);
+		$this->assertEquals(
+			UnitTest_Db_TableTest::INSERT,
+			$table->state
+		);
+		
+		// primary (which does not exist)
+		$table->state = 0;
+		$record->changePrimary('insert');
+		$this->assertEquals(
+			array(),
+			$table->save($record)
+		);
+		$this->assertEquals(
+			UnitTest_Db_TableTest::INSERT,
+			$table->state
+		);
+		
+		// primary (which exists)
+		$table->state = 0;
+		$record->changePrimary('update');
+		$this->assertEquals(
+			array(),
+			$table->save($record)
+		);
+		$this->assertEquals(
+			UnitTest_Db_TableTest::UPDATE,
+			$table->state
+		);
+		
+		try
+		{
+			// invalid primary
+			$table->state = 0;
+			$record->changePrimary('nothin');
+			$table->save($record);
+			
+			$this->assertTrue(
+				false,
+				'It should be neither inserted nor updated.'
+			);
+		}
+		catch (MVCLite_Db_Exception $e)
+		{
+			$this->assertEquals(
+				0,
+				$table->state
+			);
+		}
+		
+		// primary (which exists)
+		$table->state = 0;
+		$record->changePrimary('update');
+		$this->assertEquals(
+			array(),
+			$table->saveArray($record->get())
+		);
+		$this->assertEquals(
+			UnitTest_Db_TableTest::UPDATE,
+			$table->state
+		);
+		
+		// validation fails (nothing should be inserted)
+		$table->state = 0;
+		$table->errors = array('foo');
+		$record->changePrimary('insert');
+		$this->assertEquals(
+			array('foo'),
+			$table->save($record)
+		);
+		$this->assertEquals(
+			0,
+			$table->state
+		);
+	}
 }
 
 // required classes
 class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 {
+	const INSERT = 1;
+	const UPDATE = 2;
+	
+	public $errors = array();
+	
+	public $state = 0;
+	
 	public function delete ($id)
 	{
 		throw new MVCLite_Db_Exception('This is not tested here.');
@@ -107,6 +201,7 @@ class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 	public function getColumns ()
 	{
 		return array(
+			'id',
 			'foobar',
 			'foo',
 			'bar'
@@ -120,12 +215,18 @@ class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 	
 	public function getPrimary ()
 	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
+		return 'id';
 	}
 	
 	public function insert (array $input)
 	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
+		if(empty($input['id']) || $input['id'] == 'insert')
+		{
+			$this->state = self::INSERT;
+			return 1;
+		}
+		
+		return 0;
 	}
 	
 	public function select ($id)
@@ -135,12 +236,18 @@ class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 	
 	public function update (array $input, $id)
 	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
+		if($input['id'] == 'update')
+		{
+			$this->state = self::UPDATE;
+			return 1;
+		}
+		
+		return 0;
 	}
 	
 	public function validate (array $input)
 	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
+		return $this->errors;
 	}
 }
 ?>
