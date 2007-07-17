@@ -91,24 +91,6 @@ abstract class MVCLite_Db_Table_MySQL extends MVCLite_Db_Table_Abstract
 	}
 	
 	/**
-	 * Prepares the values of an array using quote().
-	 * 
-	 * @param array $array array to prepare for query
-	 * @return array
-	 */
-	protected function _prepareValues (array $array)
-	{
-		$db = $this->getDb();
-		
-		foreach($array as $key => $value)
-		{
-			$array[$key] = $db->quote($value);
-		}
-		
-		return $array;
-	}
-	
-	/**
 	 * @see MVCLite_Db_Table_Abstract::delete()
 	 */
 	public function delete ($id)
