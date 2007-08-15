@@ -156,9 +156,14 @@ abstract class MVCLite_Db_Table_Abstract
 		
 		$primary = $record->getPrimary();
 		
-		if(($primary && $this->update($content, $primary))
-		   || $this->insert($content))
+		if($primary && $this->update($content, $primary))
 		{
+			return array();
+		}
+		else if($this->insert($content))
+		{
+			$record->changePrimary($this->db()->lastInsertId());
+			
 			return array();
 		}
 		
