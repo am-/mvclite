@@ -102,12 +102,23 @@ class MVCLite_View
 	{
 		$this->_checkVarName($name);
 		
-		if(!isset($this->_variables[$name]))
+		if(!isset($this->$name))
 		{
 			return null;
 		}
 		
 		return $this->_variables[$name];
+	}
+	
+	/**
+	 * Checks whether a variable of the internal array is set.
+	 * 
+	 * @param string $name name of the variable
+	 * @return boolean
+	 */
+	public function __isset ($name)
+	{
+		return isset($this->_variables[$name]);
 	}
 	
 	/**

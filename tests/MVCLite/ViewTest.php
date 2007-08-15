@@ -30,6 +30,8 @@ class MVCLite_ViewTest extends PHPUnit_Framework_TestCase
 	{
 		$view = new MVCLite_View();
 		
+		$this->assertFalse(isset($view->bar));
+		
 		try
 		{
 			$view->bar = 'bar';
@@ -38,6 +40,8 @@ class MVCLite_ViewTest extends PHPUnit_Framework_TestCase
 		{
 			$this->assertTrue(false, 'bar should have been set, setting was not successful');
 		}
+		
+		$this->assertTrue(isset($view->bar));
 		
 		try
 		{
