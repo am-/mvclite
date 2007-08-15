@@ -108,10 +108,6 @@ class MVCLite_Db_TableTest extends PHPUnit_Framework_TestCase
 			$table->save($record)
 		);
 		$this->assertEquals(
-			1,
-			$record->getPrimary()
-		);
-		$this->assertEquals(
 			UnitTest_Db_TableTest::INSERT,
 			$table->state
 		);
