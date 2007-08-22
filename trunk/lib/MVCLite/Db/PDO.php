@@ -186,7 +186,7 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	 */
 	public function query ($statement)
 	{
-		$result = $this->pdo()->prepare($statement);
+		$result = $this->prepare($statement);
 		$result->execute();
 		$info = $result->errorInfo();
 		
