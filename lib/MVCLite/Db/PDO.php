@@ -170,10 +170,15 @@ class MVCLite_Db_PDO implements MVCLite_Db_Adaptable
 	{
 		if($options)
 		{
-			return $this->pdo()->prepare($statement, $options);
+			$stmt = $this->pdo()->prepare($statement, $options);
+		}
+		else
+		{
+			$stmt = $this->pdo()->prepare($statement);
 		}
 		
-		return $this->pdo()->prepare($statement);
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		return $stmt;
 	}
 	
 	/**
