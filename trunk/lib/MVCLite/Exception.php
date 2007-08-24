@@ -21,9 +21,6 @@
  */
 class MVCLite_Exception extends Exception
 {
-	public function displayTrace ()
-	{
-		echo parent::getTraceAsString();
-	}
+	
 }
 ?>
