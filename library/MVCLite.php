@@ -155,8 +155,8 @@ final class MVCLite
 	public function getBaseUrl ()
 	{
 		if($this->_base == null)
-		{
-			if(defined('PHPUnit_MAIN_METHOD'))
+		{			
+			if(PHP_SAPI == 'cli')
 			{
 				$this->_base = '/';
 			}

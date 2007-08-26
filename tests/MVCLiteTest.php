@@ -88,7 +88,7 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(
 			$this->compare(
 				$mvc->get404((string)$request),
-				$mvc->dispatch('/' . (string)$request)
+				$mvc->dispatch((string)$request)
 			),
 			'Unknown controller should produce a 404'
 		);
