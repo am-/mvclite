@@ -13,6 +13,8 @@
 define('MVCLITE_LIB', dirname(__FILE__) . '/../library/');
 // base-directory of an app (mostly necessary for other constants)
 define('MVCLITE_APP', dirname(__FILE__) . '/_files/');
+// directory where application-specific code resides
+define('MVCLITE_CODE', MVCLITE_APP . 'code/');
 // directory where the controllers reside
 define('MVCLITE_CONTROLLER', MVCLITE_APP . 'controllers/');
 // directory where the models reside
@@ -25,6 +27,7 @@ define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
  */
 $paths = explode(PATH_SEPARATOR, get_include_path());
 $paths[] = MVCLITE_LIB;
+$paths[] = MVCLITE_CODE;
 
 foreach($paths as $key => $path)
 {

@@ -62,6 +62,22 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		return true;
 	}
 	
+	public function testBootstrap ()
+	{
+		$mvc = MVCLite::getInstance();
+		
+		$bootstrap = $mvc->getBootstrap();
+		
+		$this->assertEquals(
+			'bar',
+			$bootstrap->foo
+		);
+		$this->assertEquals(
+			'foo',
+			$bootstrap->bar
+		);
+	}
+	
 	public function testDispatch ()
 	{
 		$mvc = MVCLite::getInstance();
