@@ -45,6 +45,13 @@ final class MVCLite
 	private $_base;
 	
 	/**
+	 * Instance of the bootstrap class.
+	 * 
+	 * @var Bootstrap
+	 */
+	private $_bootstrap;
+	
+	/**
 	 * Determines whether database-errors should be displayed.
 	 * 
 	 * @var boolean
@@ -70,9 +77,35 @@ final class MVCLite
 	 */
 	private function __construct ()
 	{
-		if(PHP_SAPI != 'cli')
+		
+	}
+	
+	/**
+	 * Executes the bootstrap class.
+	 * 
+	 * Each method in the bootstrap class that begins with "init"
+	 * is executed.
+	 * The bootstrap file resides in the code-directory and is always
+	 * named "Bootstrap.php", the class-name is "Bootstrap" as you
+	 * surely expected.
+	 */
+	public function bootstrap ()
+	{
+		$bootstrap = $this->getBootstrap();
+		
+		if($bootstrap === false)
 		{
-			header('X-Powered-By: ' . self::NAME . ' ' . self::VERSION);
+			throw new MVCLite_Exception('MVCLite cannot work without bootstrap-file!');
+		}
+		
+		foreach(get_class_methods($bootstrap) as $method)
+		{
+			if(substr($method, 0, 4) != 'init')
+			{
+				continue;
+			}
+			
+			$bootstrap->$method();
 		}
 	}
 	
@@ -154,25 +187,27 @@ final class MVCLite
 	 */
 	public function getBaseUrl ()
 	{
-		if($this->_base == null)
-		{			
-			if(PHP_SAPI == 'cli')
+		return $this->_base;
+	}
+	
+	/**
+	 * Returns the bootstrap-object if one exists.
+	 * 
+	 * @return Bootstrap|false
+	 */
+	public function getBootstrap ()
+	{
+		if($this->_bootstrap == null)
+		{
+			if(!file_exists(MVCLITE_CODE . 'Bootstrap.php'))
 			{
-				$this->_base = '/';
+				return false;
 			}
-			else
-			{
-				$this->_base =	
-					dirname($_SERVER['PHP_SELF']) == '/' ? '/'
-					: substr(
-						$_SERVER['PHP_SELF'],
-						0,
-						strrpos($_SERVER['PHP_SELF'], '/')
-					) . '/';
-			}
+			
+			$this->_bootstrap = new Bootstrap();
 		}
 		
-		return $this->_base;
+		return $this->_bootstrap;
 	}
 	
 	/**
@@ -229,6 +264,7 @@ final class MVCLite
 		if(self::$_instance == null)
 		{
 			self::$_instance = new self();
+			self::$_instance->bootstrap();
 		}
 		
 		return self::$_instance;
@@ -241,11 +277,6 @@ final class MVCLite
 	 */
 	public function getRoute ()
 	{
-		if($this->_route == null)
-		{
-			$this->_route = new MVCLite_Request_Route_Standard();
-		}
-		
 		return $this->_route;
 	}
 	
@@ -258,7 +289,6 @@ final class MVCLite
 	 */
 	public function getSecurityIssue ($url, MVCLite_Security_Exception $e = null)
 	{
-				
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/security')
 			 ->title = 'Security issue';
@@ -289,6 +319,19 @@ final class MVCLite
 	public function setRoute (MVCLite_Request_Route $route)
 	{
 		$this->_route = $route;
+		
+		return $this;
+	}
+	
+	/**
+	 * Sets a new base-url.
+	 * 
+	 * @param string $url new base-url
+	 * @return MVCLite
+	 */
+	public function setBaseUrl ($url)
+	{
+		$this->_base = $url;
 		
 		return $this;
 	}
