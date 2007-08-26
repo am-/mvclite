@@ -7,7 +7,13 @@ Here is a short overview about features that will be integrated in later version
 
 = Details =
 
-*Version 0.1.1*:
+*Version 0.1.2*:
+ * new directory-layout
+ * Bootstrap-class
+ * Ajax-view for Ajax results
+
+
+*~~Version 0.1.1~~*:
  * security-features
   * use of protectors (MVCLite_Security_Protector) which protect the controller-actions
  * improvements for the controller
