@@ -163,6 +163,13 @@ class MVCLite_Request_Route_StandardTest extends PHPUnit_Framework_TestCase
 		);
 		$this->assertTrue(
 			$this->compare(
+				$request->setController('bar'),
+				$route->parse('bar/')
+			),
+			'bar|index|null parsing failed'
+		);
+		$this->assertTrue(
+			$this->compare(
 				$request->setAction('foo'),
 				$route->parse('bar/foo')
 			),

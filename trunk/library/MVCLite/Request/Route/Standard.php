@@ -37,7 +37,7 @@
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id:Standard.php 133 2007-08-26 08:19:13Z andre.moelle $
  */
 class MVCLite_Request_Route_Standard implements MVCLite_Request_Route
 {
@@ -296,6 +296,12 @@ class MVCLite_Request_Route_Standard implements MVCLite_Request_Route
 	public function parse ($uri)
 	{
 		$request = new MVCLite_Request($this);
+		
+		if(substr($uri, -1) == '/')
+		{
+			$uri = substr($uri, 0, -1);
+		}
+		
 		$components = $uri ? explode(self::COMPONENT_DELIMITER, $uri, 3) : array();
 		
 		switch (count($components))
