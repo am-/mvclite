@@ -137,7 +137,6 @@ final class MVCLite
 	 */
 	public function get404 ($url, MVCLite_Exception $e = null)
 	{
-				
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/404')
 			 ->title = '404 - Not Found';
@@ -185,7 +184,6 @@ final class MVCLite
 	 */
 	public function getDatabaseError ($url, MVCLite_Db_Exception $e = null)
 	{
-						
 		$view = new MVCLite_View_Layout();
 		$view->setView('_errors/database')
 			 ->title = 'Database error';

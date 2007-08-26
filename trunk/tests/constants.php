@@ -10,7 +10,7 @@
  */
 
 // directory which contains the MVCLite.php-file and the MVCLite-directory.
-define('MVCLITE_LIB', dirname(__FILE__) . '/../lib/');
+define('MVCLITE_LIB', dirname(__FILE__) . '/../library/');
 // base-directory of an app (mostly necessary for other constants)
 define('MVCLITE_APP', dirname(__FILE__) . '/_files/');
 // directory where the controllers reside

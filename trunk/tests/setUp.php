@@ -9,6 +9,9 @@
  * or send an email to andre.moelle@gmail.com.
  */
 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
 require_once dirname(__FILE__) . '/constants.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 

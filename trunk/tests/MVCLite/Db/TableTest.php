@@ -108,6 +108,10 @@ class MVCLite_Db_TableTest extends PHPUnit_Framework_TestCase
 			$table->save($record)
 		);
 		$this->assertEquals(
+			42,
+			$record->getPrimary()
+		);
+		$this->assertEquals(
 			UnitTest_Db_TableTest::INSERT,
 			$table->state
 		);
@@ -184,6 +188,25 @@ class MVCLite_Db_TableTest extends PHPUnit_Framework_TestCase
 }
 
 // required classes
+class UnitTest_Db_TableTestDb implements MVCLite_Db_Adaptable
+{
+	public function beginTransaction () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function commit () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function errorCode () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function errorInfo () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function execute ($statement) { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function isConnected () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function prepare ($statement, array $options = array()) { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function query ($statement) { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function quote ($string) { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	public function rollBack () { throw new MVCLite_Exception(__METHOD__ . ' called'); }
+	
+	public function lastInsertId ($name = null)
+	{
+		return 42;
+	}
+}
+
 class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 {
 	const INSERT = 1;
@@ -192,6 +215,11 @@ class UnitTest_Db_TableTest extends MVCLite_Db_Table_Abstract
 	public $errors = array();
 	
 	public $state = 0;
+	
+	public function db ()
+	{
+		return new UnitTest_Db_TableTestDb();
+	}
 	
 	public function delete ($id)
 	{
