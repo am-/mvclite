@@ -29,7 +29,8 @@ include_once 'config.php';
  * Dispatches the application.
  */
 $mvc = MVCLite::getInstance();
-echo $mvc->dispatch($_SERVER['REQUEST_URI']);
+echo $mvc->dispatch($_SERVER['REQUEST_URI'])
+		 ->render();
 
 echo "\n" . '<!-- ' . sprintf('%0.3f', microtime(true) - $start) . 's -->';
 ?>
