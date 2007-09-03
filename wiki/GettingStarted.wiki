@@ -13,7 +13,6 @@ The first thing is to get the URL rewritten. If you use Apache HTTPd you can app
 {{{
 RewriteEngine on
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
-RewriteRule ^(.*) index.php
 }}}
 
 If you use Lighttpd place this snippet to your config:
