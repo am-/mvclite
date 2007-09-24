@@ -12,7 +12,7 @@
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'MVCLite/ModelTest.php';
+require_once 'MVCLite/Model/DatabaseTest.php';
 
 /**
  * Runs all tests in the model-component.
@@ -46,7 +46,7 @@ class MVCLite_Model_AllTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite('MVCLite - Model tests');
 		
-		$suite->addTestSuite('MVCLite_ModelTest');
+		$suite->addTestSuite('MVCLite_Model_DatabaseTest');
 		
 		return $suite;
 	}
