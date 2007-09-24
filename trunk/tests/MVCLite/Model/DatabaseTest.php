@@ -24,9 +24,9 @@ require_once 'MVCLite/Model/Abstract.php';
  * @copyright  2007 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id$
+ * @version    $Id: ModelTest.php 120 2007-07-15 13:35:26Z andre.moelle $
  */
-class MVCLite_ModelTest extends PHPUnit_Framework_TestCase
+class MVCLite_Model_DatabaseTest extends PHPUnit_Framework_TestCase
 {
 	public function testDatabase ()
 	{
@@ -101,7 +101,7 @@ class MVCLite_ModelTest extends PHPUnit_Framework_TestCase
 /*
  * Classes required for unittesting.
  */
-class ModeltestModel extends MVCLite_Model_Abstract
+class ModeltestModel extends MVCLite_Model_Abstract_Database
 {
 	
 }
