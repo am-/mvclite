@@ -46,7 +46,10 @@ class Bootstrap
 	 */
 	public function initPoweredBy ()
 	{
-		header('X-Powered-By: ' . MVCLite::NAME . ' ' . MVCLite::VERSION);
+		if(PHP_SAPI != 'cli')
+		{
+			header('X-Powered-By: ' . MVCLite::NAME . ' ' . MVCLite::VERSION);
+		}
 	}
 	
 	/**
