@@ -42,59 +42,31 @@ class MVCLite_Model_DatabaseTest extends PHPUnit_Framework_TestCase
 		);
 	}
 	
-	public function testTables ()
+	public function testAliasing ()
 	{
 		$model = new ModeltestModel();
 		
-		$foo = new UnitTest_ModelTest();
-		$bar = new UnitTest_ModelTest();
-		
-		$this->assertEquals(
-			$model,
-			$model->attachTable('foo', $foo)
+		$this->assertTrue(
+			$model->register('foobar', 'X') instanceof MVCLite_Model_Abstract_Database
 		);
 		$this->assertEquals(
-			$model,
-			$model->attachTable('bar', $bar)
+			'X',
+			$model->alias('foobar')
 		);
 		
 		$this->assertTrue(
-			$model->hasTable('foo')
-		);
-		$this->assertFalse(
-			$model->hasTable('unknown')
-		);
-		
-		$this->assertEquals(
-			$foo,
-			$model->getTable('foo')
+			$model->unregister('foobar') instanceof MVCLite_Model_Abstract_Database
 		);
 		
 		try
 		{
-			$model->getTable('unknown');
-			$this->assertTrue(
-				false,
-				'If retrieving an unknown table a exception should be thrown'
-			);
+			$model->alias('foobar');
+			$this->assertTrue(false, 'Unknown alias should throw an exception');
 		}
 		catch (MVCLite_Model_Exception $e)
 		{
 			
 		}
-		
-		$this->assertEquals(
-			$model,
-			$model->detachTable('foo')
-		);
-		$this->assertFalse(
-			$model->hasTable('foo')
-		);
-		
-		$this->assertEquals(
-			$bar,
-			$model->getTable('bar')
-		);
 	}
 }
 
