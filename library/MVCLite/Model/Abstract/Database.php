@@ -12,11 +12,10 @@
 /**
  * The base-model defines some useful methods.
  * 
- * Firstly it is able to fetch the used database-object. Secondly
- * it handles table-classes. You should create these table classes
- * after construction. The use of table-classes allows you to
- * make use of record-objects, validation and some other nice
- * features.
+ * Currently it is able to return the active database-instance and
+ * provides aliasing, which is useful when name of table are changed.
+ * These alias should link a general name such as "blog" to a table-name
+ * such as "someprefix_blog_content".
  * 
  * @category   MVCLite
  * @package    Model
@@ -28,40 +27,39 @@
 abstract class MVCLite_Model_Abstract_Database extends MVClite_Model_Abstract
 {
 	/**
-	 * Array containing the tables this model uses.
+	 * Stores the aliases.
+	 * 
+	 * The key is the alias and the value represents the table-name.
+	 * 
+	 * <code>
+	 * $_aliases = array(
+	 * 	'X' => 'table_foo',
+	 * 	'foobar' => 'table_bar'
+	 * );
+	 * </code>
 	 * 
 	 * @var array
 	 */
-	protected $_tables = array();
+	protected $_aliases = array();
 	
 	/**
-	 * Attaches a table to the model.
+	 * Returns the table-name of the alias.
 	 * 
-	 * @param string $alias alias of the table
-	 * @param MVCLite_Db_Table_Abstract $table table-class
-	 * @return MVCLite_Model_Abstract
-	 */
-	public function attachTable ($alias, MVCLite_Db_Table_Abstract $table)
-	{
-		$this->_tables[$alias] = $table;
-		
-		return $this;
-	}
-	
-	/**
-	 * Detaches a table from this model.
+	 * If the alias was not set a MVCLite_Model_Exception will
+	 * be thrown.
 	 * 
-	 * @param string $alias alias of the table
-	 * @return MVCLite_Model_Abstract
+	 * @param string $alias alias whose table-name is returned
+	 * @return string
+	 * @throws MVCLite_Model_Exception
 	 */
-	public function detachTable ($alias)
+	public function alias ($alias)
 	{
-		if($this->hasTable($alias))
+		if(!isset($this->_aliases[$alias]))
 		{
-			unset($this->_tables[$alias]);
+			throw new MVCLite_Model_Exception('Unknown alias "' . $alias . '"');
 		}
 		
-		return $this;
+		return $this->_aliases[$alias];
 	}
 	
 	/**
@@ -76,36 +74,33 @@ abstract class MVCLite_Model_Abstract_Database extends MVClite_Model_Abstract
 	}
 	
 	/**
-	 * Returns the table.
+	 * Registers an alias and possibly overwrites an old one.
 	 * 
-	 * If the table does not exist, a MVCLite_Model_Exception will
-	 * be thrown.
-	 * 
-	 * @param string $alias alias of the table to return
-	 * @return MVCLite_Db_Table_Abstract
-	 * @throws MVCLite_Model_Exception
+	 * @param string $alias alias of the table
+	 * @param string $table name of the table
+	 * @return MVCLite_Model_Abstract_Database
 	 */
-	public function getTable ($alias)
+	public function register ($alias, $table)
 	{
-		if(!$this->hasTable($alias))
-		{
-			throw new MVCLite_Model_Exception(
-				'Table with the alias "' . $alias . '" does not exist'
-			);
-		}
+		$this->_aliases[$alias] = $table;
 		
-		return $this->_tables[$alias];
+		return $this;
 	}
 	
 	/**
-	 * Checks whether a table with that alias exists.
+	 * Removes the alias from the aliases-list.
 	 * 
-	 * @param string $alias alias of the table
-	 * @return boolean
+	 * @param string $alias alias to remove
+	 * @return MVCLite_Model_Abstract_Database
 	 */
-	public function hasTable ($alias)
+	public function unregister ($alias)
 	{
-		return isset($this->_tables[$alias]);
+		if(isset($this->_aliases[$alias]))
+		{
+			unset($this->_aliases[$alias]);
+		}
+		
+		return $this;
 	}
 }
 ?>
