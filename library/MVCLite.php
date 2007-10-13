@@ -83,9 +83,9 @@ final class MVCLite
 	/**
 	 * Executes the bootstrap class.
 	 */
-	public function bootstrap ()
+	public function bootstrap ($profile)
 	{
-		$bootstrap = $this->getBootstrap();
+		$bootstrap = $this->getBootstrap($profile);
 		
 		if($bootstrap === false)
 		{
@@ -137,9 +137,10 @@ final class MVCLite
 	/**
 	 * Returns the bootstrap-object if one exists.
 	 * 
+	 * @param string $profile profile used for the bootstrap
 	 * @return Bootstrap|false
 	 */
-	public function getBootstrap ()
+	public function getBootstrap ($profile = 'development')
 	{
 		if($this->_bootstrap == null)
 		{
@@ -148,7 +149,7 @@ final class MVCLite
 				return false;
 			}
 			
-			$this->_bootstrap = new Bootstrap();
+			$this->_bootstrap = new Bootstrap($profile);
 		}
 		
 		return $this->_bootstrap;
@@ -177,15 +178,15 @@ final class MVCLite
 	/**
 	 * Creates and returns an instance of this class.
 	 * 
-	 * @param void
+	 * @param string $profile current profile
 	 * @return MVCLite
 	 */
-	public static function getInstance ()
+	public static function getInstance ($profile = 'development')
 	{
 		if(self::$_instance == null)
 		{
 			self::$_instance = new self();
-			self::$_instance->bootstrap();
+			self::$_instance->bootstrap($profile);
 		}
 		
 		return self::$_instance;

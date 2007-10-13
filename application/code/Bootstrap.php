@@ -42,6 +42,29 @@ class Bootstrap extends MVCLite_Bootstrap
 	}
 	
 	/**
+	 * Initializes the database.
+	 */
+	public function initDatabase ()
+	{
+		switch ($this->getProfile())
+		{
+			default:
+			case 'development':
+				$adapter = new MVCLite_Db_PDO('mysql:host=localhost;dbname=mvclite', 'root');
+				
+				break;
+			case 'test':
+				
+				break;
+			case 'production':
+				
+				break;
+		}
+		
+		MVCLite_Db::getInstance()->setAdapter($adapter);
+	}
+	
+	/**
 	 * Sends the X-Powered-By header to the browser.
 	 */
 	public function initPoweredBy ()
@@ -60,6 +83,27 @@ class Bootstrap extends MVCLite_Bootstrap
 	public function initRoute ()
 	{
 		MVCLite::getInstance()->setRoute(new MVCLite_Request_Route_Standard());
-	}	
+	}
+	
+	/**
+	 * Initializes some options of error-handling.
+	 */
+	public function initError ()
+	{
+		switch ($this->getProfile())
+		{
+			case 'development':
+				error_reporting(E_ALL);
+				ini_set('display_errors', 'On');
+				MVCLite_Db::getInstance()->display(true);
+				
+				break;
+			default:
+				ini_set('display_errors', 'Off');
+				MVCLite_Db::getInstance()->display(false);
+				
+				break;
+		}
+	}
 }
 ?>
