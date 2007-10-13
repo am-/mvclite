@@ -24,6 +24,16 @@
 abstract class MVCLite_Bootstrap
 {
 	/**
+	 * Sets the profile.
+	 * 
+	 * @param string $profile profile currently used
+	 */
+	public function __construct ($profile)
+	{
+		$this->_profile = $profile;
+	}
+	
+	/**
 	 * Bootstraps the application.
 	 * 
 	 * Each method in the class that begins with "init" is executed.
@@ -42,6 +52,16 @@ abstract class MVCLite_Bootstrap
 			
 			$this->$method();
 		}
+	}
+	
+	/**
+	 * Returns the profile.
+	 * 
+	 * @return string
+	 */
+	public function getProfile ()
+	{
+		return $this->_profile;
 	}
 }
 ?>
