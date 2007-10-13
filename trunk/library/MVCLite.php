@@ -82,12 +82,6 @@ final class MVCLite
 	
 	/**
 	 * Executes the bootstrap class.
-	 * 
-	 * Each method in the bootstrap class that begins with "init"
-	 * is executed.
-	 * The bootstrap file resides in the code-directory and is always
-	 * named "Bootstrap.php", the class-name is "Bootstrap" as you
-	 * surely expected.
 	 */
 	public function bootstrap ()
 	{
@@ -98,15 +92,7 @@ final class MVCLite
 			throw new MVCLite_Exception('MVCLite cannot work without bootstrap-file!');
 		}
 		
-		foreach(get_class_methods($bootstrap) as $method)
-		{
-			if(substr($method, 0, 4) != 'init')
-			{
-				continue;
-			}
-			
-			$bootstrap->$method();
-		}
+		$bootstrap->bootstrap();
 	}
 	
 	/**
