@@ -163,8 +163,8 @@ final class MVCLite
 	{
 		if($this->_error == null)
 		{
-			$this->setError(new MVCLite_Error());
-			$this->getError()
+			$this->setError(new MVCLite_Error())
+				 ->getError()
 				 ->attach(new MVCLite_Error_Database())
 				 ->attach(new MVCLite_Error_General())
 				 ->attach(new MVCLite_Error_NotFound())
