@@ -22,7 +22,7 @@
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:MVCLite.php 133 2007-08-26 08:19:13Z andre.moelle $
  */
-class Bootstrap
+class Bootstrap extends MVCLite_Bootstrap
 {
 	/**
 	 * Initializes the base-url automatically.
