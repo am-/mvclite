@@ -26,7 +26,7 @@ class MVCLite_Error_General extends MVCLite_Error_Abstract
 	 */
 	protected function getApplicableName ()
 	{
-		return 'Exception';
+		return (array)'Exception';
 	}
 	
 	/**

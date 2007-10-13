@@ -26,7 +26,7 @@ class MVCLite_Error_Database extends MVCLite_Error_Abstract
 	 */
 	protected function getApplicableName ()
 	{
-		return 'MVCLite_Db_Exception';
+		return (array)'MVCLite_Db_Exception';
 	}
 	
 	/**
