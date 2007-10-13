@@ -29,9 +29,11 @@ abstract class MVCLite_Error_Abstract
 	 * This method returns the searched exception.
 	 * 
 	 * It returns the name of the exception which is applicable
-	 * by this chain-element.
+	 * by this chain-element. Since it is possible, that one
+	 * handler accepts more than one type of exception, the
+	 * result is an array.
 	 * 
-	 * @return string
+	 * @return array
 	 */
 	abstract protected function getApplicableName ();
 	
@@ -69,11 +71,16 @@ abstract class MVCLite_Error_Abstract
 	 */
 	public function match (array $inheritance)
 	{
-		$result = array_search($this->getApplicableName(), $inheritance);
+		$result = -1;
 		
-		if($result === false)
+		foreach((array)$this->getApplicableName() as $name)
 		{
-			return -1;
+			$score = array_search($name, $inheritance);
+			
+			if($score !== false && $score > $result)
+			{
+				$result = $score;
+			}
 		}
 		
 		return $result;
@@ -90,7 +97,9 @@ abstract class MVCLite_Error_Abstract
 	 */
 	public function matchExactly (Exception $e)
 	{
-		return (get_class($e) == $this->getApplicableName());
+		$class = get_class($e);
+		
+		return in_array($class, (array)$this->getApplicableName());
 	}
 }
 ?>

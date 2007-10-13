@@ -33,36 +33,6 @@ class MVCLite_Error_NotFound extends MVCLite_Error_Abstract
 	}
 	
 	/**
-	 * @see MVCLite_Error_Abstract::match()
-	 */
-	public function match (array $inheritance)
-	{
-		$result = -1;
-		
-		foreach($this->getApplicableName() as $name)
-		{
-			$score = array_search($name, $inheritance);
-			
-			if($score !== false && $score > $result)
-			{
-				$result = $score;
-			}
-		}
-		
-		return $result;
-	}
-	
-	/**
-	 * @see MVCLite_Error_Abstract::matchExactly()
-	 */
-	public function matchExactly (Exception $e)
-	{
-		$class = get_class($e);
-		
-		return in_array($class, $this->getApplicableName());
-	}
-	
-	/**
 	 * @see MVCLite_Error_Abstract::handle()
 	 */
 	public function handle (Exception $e)

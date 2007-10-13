@@ -26,7 +26,7 @@ class MVCLite_Error_Security extends MVCLite_Error_Abstract
 	 */
 	protected function getApplicableName ()
 	{
-		return 'MVCLite_Security_Exception';
+		return (array)'MVCLite_Security_Exception';
 	}
 	
 	/**
