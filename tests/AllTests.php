@@ -15,6 +15,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 require_once 'MVCLite/Controller/AllTests.php';
 require_once 'MVCLite/Core/AllTests.php';
 require_once 'MVCLite/Db/AllTests.php';
+require_once 'MVCLite/Error/AllTests.php';
 require_once 'MVCLite/Model/AllTests.php';
 require_once 'MVCLite/Request/AllTests.php';
 require_once 'MVCLite/Security/AllTests.php';
@@ -55,6 +56,7 @@ class AllTests
 		$suite->addTest(MVCLite_Controller_AllTests::suite());
 		$suite->addTest(MVCLite_Core_AllTests::suite());
 		$suite->addTest(MVCLite_Db_AllTests::suite());
+		$suite->addTest(MVCLite_Error_AllTests::suite());
 		$suite->addTest(MVCLite_Model_AllTests::suite());
 		$suite->addTest(MVCLite_Request_AllTests::suite());
 		$suite->addTest(MVCLite_Security_AllTests::suite());

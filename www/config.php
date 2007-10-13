@@ -74,8 +74,6 @@ switch ($profile)
 				  ->setAdapter(new MVCLite_Db_PDO('mysql:host=localhost;dbname=mvclite', 'root'))
 				  ->display(true);
 		
-		MVCLite::getInstance()->display(true);
-		
 		break;
 		
 	case 'production':

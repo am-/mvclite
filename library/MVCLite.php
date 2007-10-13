@@ -52,11 +52,11 @@ final class MVCLite
 	private $_bootstrap;
 	
 	/**
-	 * Determines whether database-errors should be displayed.
+	 * Instance of the MVCLite_Error-class.
 	 * 
-	 * @var boolean
+	 * @var MVCLite_Error
 	 */
-	private $_display = false;
+	private $_error;
 	
 	/**
 	 * Instance of this class.
@@ -110,58 +110,16 @@ final class MVCLite
 			$dispatcher = new MVCLite_Request_Dispatcher($this->getRoute());
 			$view = $dispatcher->dispatch(substr($url, strlen($this->getBaseUrl())));
 		}
-		catch (MVCLite_Controller_Exception $e)
-		{
-			$view = $this->get404($url, $e);
-		}
-		catch (MVCLite_Request_Dispatcher_Exception $e)
-		{
-			$view = $this->get404($url, $e);
-		}
-		catch (MVCLite_Db_Exception $e)
-		{
-			$view = $this->getDatabaseError($url, $e);
-		}
-		catch (MVCLite_Security_Exception $e)
-		{
-			$view = $this->getSecurityIssue($url, $e);
-		}
 		catch (Exception $e)
 		{
-			$view = $this->getGeneralError($url, $e);
+			if($e instanceof MVCLite_Exception)
+			{
+				$e->setUrl($url);
+			}
+			
+			$view = $this->getError()
+						 ->handle($e);
 		}
-		
-		return $view;
-	}
-	
-	/**
-	 * Determines whether errors should be displayed.
-	 * 
-	 * @param boolean $display true when errors should be displayed
-	 * @return MVCLite
-	 */
-	public function display ($display = false)
-	{
-		$this->_display = (bool)$display;
-		
-		return $this;
-	}
-	
-	/**
-	 * Returns the template which is displayed on a 404-error.
-	 * 
-	 * @param string $url requested url
-	 * @param MVCLite_Exception $e exception containing some useful information
-	 * @return MVCLite_View
-	 */
-	public function get404 ($url, MVCLite_Exception $e = null)
-	{
-		$view = new MVCLite_View_Layout();
-		$view->setView('_errors/404')
-			 ->title = '404 - Not Found';
-		
-		$subView = $view->getView();
-		$subView->requestUrl = $url;
 		
 		return $view;
 	}
@@ -197,46 +155,23 @@ final class MVCLite
 	}
 	
 	/**
-	 * Returns a view representing a database error.
+	 * Returns the error-object.
 	 * 
-	 * @param string $url url that was request
-	 * @param MVCLite_Db_Exception $e catched database-error
-	 * @return MVCLite_View
+	 * @return MVCLite_Error
 	 */
-	public function getDatabaseError ($url, MVCLite_Db_Exception $e = null)
+	public function getError ()
 	{
-		$view = new MVCLite_View_Layout();
-		$view->setView('_errors/database')
-			 ->title = 'Database error';
+		if($this->_error == null)
+		{
+			$this->setError(new MVCLite_Error());
+			$this->getError()
+				 ->attach(new MVCLite_Error_Database())
+				 ->attach(new MVCLite_Error_General())
+				 ->attach(new MVCLite_Error_NotFound())
+				 ->attach(new MVCLite_Error_Security());
+		}
 		
-		$subView = $view->getView();
-		$subView->render = MVCLite_Db::getInstance()->isDisplayed();
-		$subView->requestUrl = $url;
-		$subView->execptionObject = $e;
-		
-		return $view;
-	}
-	
-	/**
-	 * Returns a view displaying a general error.
-	 * 
-	 * @param string $url requested url
-	 * @param MVCLite_Exception $e exception containing some useful information
-	 * @return MVCLite_View
-	 */
-	public function getGeneralError ($url, Exception $e = null)
-	{
-				
-		$view = new MVCLite_View_Layout();
-		$view->setView('_errors/general')
-			 ->title = 'General error';
-		
-		$subView = $view->getView();
-		$subView->render = $this->isDisplayed();
-		$subView->requestUrl = $url;
-		$subView->exceptionObject = $e;
-		
-		return $view;
+		return $this->_error;
 	}
 	
 	/**
@@ -267,33 +202,16 @@ final class MVCLite
 	}
 	
 	/**
-	 * Returns a view displaying a security issue.
+	 * Sets a new error-object.
 	 * 
-	 * @param string $url requested url
-	 * @param MVCLite_Exception $e exception containing some useful information
-	 * @return MVCLite_View
+	 * @param MVCLite_Error $error new object
+	 * @return MVCLite
 	 */
-	public function getSecurityIssue ($url, MVCLite_Security_Exception $e = null)
+	public function setError (MVCLite_Error $error)
 	{
-		$view = new MVCLite_View_Layout();
-		$view->setView('_errors/security')
-			 ->title = 'Security issue';
+		$this->_error = $error;
 		
-		$subView = $view->getView();
-		$subView->requestUrl = $url;
-		$subView->exceptionObject = $e;
-		
-		return $view;
-	}
-	
-	/**
-	 * Returns true when errors should be displayed.
-	 * 
-	 * @return boolean
-	 */
-	public function isDisplayed ()
-	{
-		return $this->_display;
+		return $this;
 	}
 	
 	/**
