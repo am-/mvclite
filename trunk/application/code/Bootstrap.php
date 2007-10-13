@@ -61,7 +61,10 @@ class Bootstrap extends MVCLite_Bootstrap
 				break;
 		}
 		
-		MVCLite_Db::getInstance()->setAdapter($adapter);
+		if(isset($adapter))
+		{
+			MVCLite_Db::getInstance()->setAdapter($adapter);
+		}
 	}
 	
 	/**
