@@ -76,6 +76,17 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 			'foo',
 			$bootstrap->bar
 		);
+		
+		$bootstrap = new Bootstrap('production');
+		$this->assertEquals(
+			'production',
+			$bootstrap->getProfile()
+		);
+		$bootstrap = new Bootstrap('test');
+		$this->assertEquals(
+			'test',
+			$bootstrap->getProfile()
+		);
 	}
 	
 	public function testDispatch ()
