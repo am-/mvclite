@@ -82,6 +82,8 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 	{
 		$mvc = MVCLite::getInstance();
 		
+		$chain = $mvc->getError()->getChain();
+		
 		$class = ucfirst(strtolower(__CLASS__)) . MVCLite_Loader::getSuffix(MVCLite_Loader::CONTROLLER);
 		$path = MVCLITE_CONTROLLER . $class . '.php';
 		
@@ -89,21 +91,8 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		$request->setController(ucfirst(strtolower(__CLASS__)));
 		
 		$this->assertTrue(
-			$mvc->display(true)->isDisplayed(),
-			'Display-method does not function correctly'
-		);
-		$this->assertFalse(
-			$mvc->display(false)->isDisplayed(),
-			'Display-method does not function correctly'
-		);
-		$this->assertFalse(
-			$mvc->display()->isDisplayed(),
-			'Display-method does not function correctly'
-		);
-		
-		$this->assertTrue(
 			$this->compare(
-				$mvc->get404((string)$request),
+				$chain['MVCLite_Error_NotFound']->handle(new MVCLite_Exception()),
 				$mvc->dispatch((string)$request)
 			),
 			'Unknown controller should produce a 404'
@@ -121,7 +110,7 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 				->setAction('bar');
 		$this->assertTrue(
 			$this->compare(
-				$mvc->get404((string)$request),
+				$chain['MVCLite_Error_NotFound']->handle(new MVCLite_Exception()),
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Unknown action should produce a 404'
@@ -130,7 +119,7 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 				->setAction('index');
 		$this->assertFalse(
 			$this->compare(
-				$mvc->get404((string)$request),
+				$chain['MVCLite_Error_NotFound']->handle(new MVCLite_Exception()),
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Valid action should not produce a 404 error'
@@ -164,27 +153,17 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 				->setAction('index');
 		$this->assertTrue(
 			$this->compare(
-				$mvc->getGeneralError((string)$request),
+				$chain['MVCLite_Error_General']->handle(new MVCLite_Exception()),
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Thrown exception should produce a general error'
-		);
-		$mvc->display(true);
-		$this->assertTrue(
-			$mvc->dispatch('/' . (string)$request)->getView()->render,
-			'General error gets not rendered'
-		);
-		$mvc->display(false);
-		$this->assertFalse(
-			$mvc->dispatch('/' . (string)$request)->getView()->render,
-			'General error gets rendered'
 		);
 		
 		$request->setController(__CLASS__ . '2')
 				->setAction('error');
 		$this->assertTrue(
 			$this->compare(
-				$mvc->getDatabaseError((string)$request),
+				$chain['MVCLite_Error_Database']->handle(new MVCLite_Exception()),
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Thrown exception should produce a database error'
@@ -204,7 +183,7 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 				->setAction('security');
 		$this->assertTrue(
 			$this->compare(
-				$mvc->getSecurityIssue((string)$request),
+				$chain['MVCLite_Error_Security']->handle(new MVCLite_Exception()),
 				$mvc->dispatch('/' . (string)$request)
 			),
 			'Thrown exception should produce a security-issue'
