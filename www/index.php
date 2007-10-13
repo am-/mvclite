@@ -28,7 +28,7 @@ include_once 'config.php';
 /*
  * Dispatches the application.
  */
-$mvc = MVCLite::getInstance();
+$mvc = MVCLite::getInstance($profile);
 echo $mvc->dispatch($_SERVER['REQUEST_URI'])
 		 ->render();
 
