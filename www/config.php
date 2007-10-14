@@ -53,6 +53,6 @@ set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
  * 
  * You should not edit this.
  */
-include 'MVCLite/Loader.php';
+require 'MVCLite/Loader.php';
 MVCLite_Loader::register();
 ?>
