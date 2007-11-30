@@ -24,7 +24,7 @@
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id:Abstract.php 133 2007-08-26 08:19:13Z andre.moelle $
  */
-abstract class MVCLite_Model_Abstract_Database extends MVClite_Model_Abstract
+abstract class MVCLite_Model_Abstract_Database extends MVCLite_Model_Abstract
 {
 	/**
 	 * Stores the aliases.
