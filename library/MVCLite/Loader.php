@@ -58,7 +58,8 @@ class MVCLite_Loader
 	 */
 	private static function _load ($class)
 	{
-		include str_replace('_', '/', $class) . '.php';
+		$file = str_replace(array('_', '::'), '/', $class) . '.php';
+		include $file;
 	}
 	
 	/**
