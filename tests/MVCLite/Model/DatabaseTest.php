@@ -77,48 +77,4 @@ class ModeltestModel extends MVCLite_Model_Abstract_Database
 {
 	
 }
-
-
-class UnitTest_ModelTest extends MVCLite_Db_Table_Abstract
-{
-	public function delete ($id)
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function getColumns ()
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function getName ()
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function getPrimary ()
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function insert (array $input)
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function select ($id)
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function update (array $input, $id)
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-	
-	public function validate (array $input)
-	{
-		throw new MVCLite_Db_Exception('This is not tested here.');
-	}
-}
 ?>
