@@ -24,6 +24,11 @@
 abstract class MVCLite_Bootstrap
 {
 	/**
+	 * Currently used profile.
+	 */
+	private $_profile;
+	
+	/**
 	 * Sets the profile.
 	 * 
 	 * @param string $profile profile currently used
