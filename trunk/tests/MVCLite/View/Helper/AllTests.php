@@ -22,7 +22,7 @@ require_once 'MVCLite/View/Helper/UrlTest.php';
  * @category   MVCLite
  * @package    View
  * @subpackage UnitTests
- * @copyright  2007 Nordic Development
+ * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id: AllTests.php 93 2007-07-13 09:39:03Z andre.moelle $

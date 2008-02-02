@@ -20,7 +20,7 @@ require_once 'MVCLite/ErrorTest.php';
  * @category   MVCLite
  * @package    Error
  * @subpackage UnitTests
- * @copyright  2007 Nordic Development
+ * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id: AllTests.php 84 2007-07-11 21:50:48Z andre.moelle $

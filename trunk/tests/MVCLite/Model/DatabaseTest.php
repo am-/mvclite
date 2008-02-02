@@ -21,7 +21,7 @@ require_once 'MVCLite/Model/Abstract.php';
  * @category   MVCLite
  * @package    Model
  * @subpackage UnitTests
- * @copyright  2007 Nordic Development
+ * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id: ModelTest.php 120 2007-07-15 13:35:26Z andre.moelle $

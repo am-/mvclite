@@ -14,7 +14,7 @@
  * 
  * @category   MVCLite
  * @package    Model
- * @copyright  2007 Nordic Development
+ * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id: Exception.php 83 2007-07-11 21:24:38Z andre.moelle $
