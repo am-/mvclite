@@ -24,7 +24,7 @@ require_once 'MVCLite/Request/Route/Standard.php';
  * @category   MVCLite
  * @package    Request
  * @subpackage UnitTests
- * @copyright  2007 Nordic Development
+ * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
  * @version    $Id$
