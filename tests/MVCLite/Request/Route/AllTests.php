@@ -24,7 +24,7 @@ require_once 'MVCLite/Request/Route/ClassicTest.php';
  * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id: AllTests.php 107 2007-07-13 20:52:28Z andre.moelle $
+ * @version    $Id$
  */
 class MVCLite_Request_Route_AllTests
 {

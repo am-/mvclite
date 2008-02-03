@@ -20,7 +20,7 @@ include 'setUp.php';
  * @copyright  2007-2008 Nordic Development
  * @license    http://license.nordic-dev.de/newbsd.txt (New-BSD license)
  * @author     Andre Moelle <andre.moelle@gmail.com>
- * @version    $Id: RouteTest.php 84 2007-07-11 21:50:48Z andre.moelle $
+ * @version    $Id$
  */
 class MVCLite_Request_Route_ClassicTest extends PHPUnit_Framework_TestCase
 {
