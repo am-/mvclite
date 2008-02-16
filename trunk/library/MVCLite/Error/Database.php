@@ -41,7 +41,7 @@ class MVCLite_Error_Database extends MVCLite_Error_Abstract
 		$subView = $view->getView();
 		$subView->render = MVCLite_Db::getInstance()->isDisplayed();
 		$subView->requestUrl = $e->getUrl();
-		$subView->execptionObject = $e;
+		$subView->exceptionObject = $e;
 		
 		return $view;
 	}
