@@ -33,20 +33,14 @@ define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
  */
 $paths = explode(PATH_SEPARATOR, get_include_path());
 $paths[] = MVCLITE_LIB;
-$paths[] = MVCLITE_APP;
 $paths[] = MVCLITE_CODE;
 
-foreach($paths as $key => $path)
-{
-	$paths[$key] = realpath($path);
-	
-	if(!$paths[$key])
-	{
-		unset($paths[$key]);
-	}
-}
-
-set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
+set_include_path(
+	implode(
+		PATH_SEPARATOR,
+		array_unique(array_filter(array_map('realpath', $paths)))
+	)
+);
 
 /*
  * Registers the autoloader.
