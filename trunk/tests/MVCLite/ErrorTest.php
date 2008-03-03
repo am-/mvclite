@@ -28,10 +28,16 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 	public function testChain ()
 	{
 		$error = new MVCLite_Error();
+		$default= array(
+			'MVCLite_Error_Database',
+			'MVCLite_Error_General',
+			'MVCLite_Error_NotFound',
+			'MVCLite_Error_Security'
+		);
 		
 		$this->assertEquals(
-			array(),
-			$error->getChain()
+			$default,
+			array_values(array_map('get_class', $error->getChain()))
 		);
 		
 		$this->assertEquals(
@@ -44,7 +50,7 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 			'UnitTestError_Element',
 			get_class($chain['UnitTestError_Element'])
 		);
-		$this->assertEquals(1, count($chain));
+		$this->assertEquals(count($default) + 1, count($chain));
 		
 		$this->assertEquals(
 			$error,
@@ -55,15 +61,15 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 			'UnitTestError_Element',
 			get_class($chain['UnitTestError_Element'])
 		);
-		$this->assertEquals(1, count($chain));
+		$this->assertEquals(count($default) + 1, count($chain));
 		
 		$this->assertEquals(
 			$error,
 			$error->detach('UnitTestError_Element')
 		);
 		$this->assertEquals(
-			array(),
-			$error->getChain()
+			$default,
+			array_values(array_map('get_class', $error->getChain()))
 		);
 		
 		$this->assertEquals(
@@ -75,6 +81,7 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 	public function testHandle ()
 	{
 		$error = new MVCLite_Error();
+		$error->clear();
 		$elements = array(
 			new UnitTestError_Element(),
 			new UnitTestError_Element2()
@@ -82,7 +89,7 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 		$elements[0]->name = 'Exception';
 		$elements[1]->name = 'MVCLite_Exception';
 		
-		$this->assertEquals(null, $error->handle(new Exception));
+		$this->assertEquals(null, $error->handle(new Exception()));
 		
 		foreach($elements as $element)
 		{
@@ -107,6 +114,18 @@ class MVCLite_ErrorTest extends PHPUnit_Framework_TestCase
 			null,
 			$error->detach(get_class($elements[0]))->handle(new FooException())
 		);
+	}
+	
+	public function testRestoreAndClear ()
+	{
+		$error = new MVCLite_Error();
+		$start = $error->getChain();
+		
+		$this->assertTrue(count($start) > 0);
+		$error->clear();
+		$this->assertEquals(array(), $error->getChain());
+		$error->restore();
+		$this->assertEquals($start, $error->getChain());
 	}
 	
 	public function testInheritance ()

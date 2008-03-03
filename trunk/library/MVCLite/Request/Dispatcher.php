@@ -127,7 +127,7 @@ class MVCLite_Request_Dispatcher
 				switch ($code)
 				{
 					case MVCLite_Request_Dispatcher_Redirect::EXTERNAL:
-						header('Location: ' . MVCLite::getInstance()->getBaseUrl() . $url);
+						header('Location: ' . MVCLITE_BASE_URL . $url);
 						exit;
 					
 					case MVCLite_Request_Dispatcher_Redirect::DIRTY:

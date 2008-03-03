@@ -21,6 +21,8 @@ define('MVCLITE_CONTROLLER', MVCLITE_APP . 'controllers/');
 define('MVCLITE_MODEL', MVCLITE_APP . 'models/');
 // directory where the views (or templates) reside
 define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
+// base-url; automatically discovered
+define('MVCLITE_BASE_URL', '/');
 
 /*
  * Adds new paths to the include-path.

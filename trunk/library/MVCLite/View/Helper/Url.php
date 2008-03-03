@@ -27,21 +27,6 @@
 class MVCLite_View_Helper_Url extends MVCLite_View_Helper_Abstract
 {
 	/**
-	 * Instance of the MVCLite-object.
-	 * 
-	 * @var MVCLite
-	 */
-	private $_front;
-	
-	/**
-	 * @see MVCLite_View_Helper_Abstract::_init()
-	 */
-	protected function _init ()
-	{
-		$this->_front = MVCLite::getInstance();
-	}
-	
-	/**
 	 * Converts the given information to an url using the active route.
 	 * 
 	 * @param string $url incomplete url
@@ -49,12 +34,13 @@ class MVCLite_View_Helper_Url extends MVCLite_View_Helper_Abstract
 	 */
 	public function url ($controller = 'Index', $action = 'index', array $args = array())
 	{
-		$request = new MVCLite_Request($this->_front->getRoute());
+		// TODO: Provide other routes.
+		$request = new MVCLite_Request(new MVCLite_Request_Route_Standard());
 		$request->setController($controller)
 				->setAction($action)
 				->setParams($args, MVCLite_Request::MODUS_RECREATE);
 		
-		return $this->_front->getBaseUrl() . $request;
+		return MVCLITE_BASE_URL . $request;
 	}
 }
 ?>

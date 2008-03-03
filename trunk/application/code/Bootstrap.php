@@ -12,8 +12,7 @@
 /**
  * This class is the bootstrap which makes the application ready.
  * 
- * It should be used to attach view-helpers, select the correct route,
- * activate plugins and so on.
+ * It should be used to attach view-helpers, activate plugins and so on.
  * 
  * @category   MVCLite
  * @package    Core
@@ -24,23 +23,6 @@
  */
 class Bootstrap extends MVCLite_Bootstrap
 {
-	/**
-	 * Initializes the base-url automatically.
-	 * 
-	 * WARNING: Do not edit this unless you REALLY know what you are doing.
-	 */
-	public function initBase ()
-	{
-		MVCLite::getInstance()->setBaseUrl(
-			dirname($_SERVER['PHP_SELF']) == '/' ? '/'
-				: substr(
-					$_SERVER['PHP_SELF'],
-					0,
-					strrpos($_SERVER['PHP_SELF'], '/')
-				) . '/'
-		);
-	}
-	
 	/**
 	 * Initializes the database.
 	 */
@@ -65,27 +47,6 @@ class Bootstrap extends MVCLite_Bootstrap
 		{
 			MVCLite_Db::getInstance()->setAdapter($adapter);
 		}
-	}
-	
-	/**
-	 * Sends the X-Powered-By header to the browser.
-	 */
-	public function initPoweredBy ()
-	{
-		if(PHP_SAPI != 'cli')
-		{
-			header('X-Powered-By: ' . MVCLite::NAME . ' ' . MVCLite::VERSION);
-		}
-	}
-	
-	/**
-	 * Sets the default request.
-	 * 
-	 * WARNING: Do not edit this unless you REALLY know what you are doing.
-	 */
-	public function initRoute ()
-	{
-		MVCLite::getInstance()->setRoute(new MVCLite_Request_Route_Standard());
 	}
 	
 	/**

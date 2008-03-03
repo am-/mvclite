@@ -10,9 +10,16 @@
  */
 
 /**
- * This class is the abstract bootstrap.
+ * This is the abstract bootstrap-class.
  * 
- * It contains method for setting up the bootstrap easily.
+ * The use of the bootstrap class is mainly creating the front-controller,
+ * also known as the class MVCLite. 
+ * Additionally, there are methods which encapsulate functionality for
+ * configuring the front-controller resp. the entire application. These
+ * methods have the prefix "init".
+ * Furthermore, it is important to enable the developer to differ
+ * between some stages (or enviroments, such as productive or test
+ * environments).
  * 
  * @category   MVCLite
  * @package    Core
@@ -27,6 +34,13 @@ abstract class MVCLite_Bootstrap
 	 * Currently used profile.
 	 */
 	private $_profile;
+	
+	/**
+	 * Instance of the FrontController.
+	 * 
+	 * @var MVCLite
+	 */
+	private $_frontController;
 	
 	/**
 	 * Sets the profile.
@@ -46,17 +60,19 @@ abstract class MVCLite_Bootstrap
 	 * named "Bootstrap.php", the class-name is "Bootstrap" as you
 	 * surely expected.
 	 */
-	public function bootstrap ()
+	final public function bootstrap ()
 	{
+		$this->_frontController = new MVCLite();
+		
 		foreach(get_class_methods($this) as $method)
 		{
-			if(substr($method, 0, 4) != 'init')
+			if(substr($method, 0, 4) == 'init')
 			{
-				continue;
+				$this->$method();
 			}
-			
-			$this->$method();
 		}
+		
+		return $this->getFrontController();
 	}
 	
 	/**
@@ -67,6 +83,29 @@ abstract class MVCLite_Bootstrap
 	public function getProfile ()
 	{
 		return $this->_profile;
+	}
+	
+	/**
+	 * Returns the current front-controller.
+	 * 
+	 * @return MVCLite
+	 */
+	public function getFrontController ()
+	{
+		return $this->_frontController;
+	}
+	
+	/**
+	 * Sends the X-Powered-By header to the browser.
+	 * 
+	 * This can be overwritten, but if you like MVCLite you should not. :-)
+	 */
+	public function initPoweredBy ()
+	{
+		if(PHP_SAPI != 'cli')
+		{
+			header('X-Powered-By: ' . MVCLite::NAME . ' ' . MVCLite::VERSION);
+		}
 	}
 }
 ?>

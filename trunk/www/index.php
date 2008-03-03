@@ -21,14 +21,13 @@
  */
 
 $start = microtime(true);
-
-$profile = 'development';
 include_once 'config.php';
 
 /*
  * Dispatches the application.
  */
-$mvc = MVCLite::getInstance($profile);
+$bootstrap = new Bootstrap('development');
+$mvc = $bootstrap->bootstrap();
 echo $mvc->dispatch($_SERVER['REQUEST_URI'])
 		 ->render();
 

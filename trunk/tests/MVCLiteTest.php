@@ -62,36 +62,10 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		return true;
 	}
 	
-	public function testBootstrap ()
-	{
-		$mvc = MVCLite::getInstance();
-		
-		$bootstrap = $mvc->getBootstrap();
-		
-		$this->assertEquals(
-			'bar',
-			$bootstrap->foo
-		);
-		$this->assertEquals(
-			'foo',
-			$bootstrap->bar
-		);
-		
-		$bootstrap = new Bootstrap('production');
-		$this->assertEquals(
-			'production',
-			$bootstrap->getProfile()
-		);
-		$bootstrap = new Bootstrap('test');
-		$this->assertEquals(
-			'test',
-			$bootstrap->getProfile()
-		);
-	}
-	
 	public function testDispatch ()
 	{
-		$mvc = MVCLite::getInstance();
+		$bootstrap = new Bootstrap('test');
+		$mvc = $bootstrap->bootstrap();
 		
 		$chain = $mvc->getError()->getChain();
 		
@@ -201,25 +175,6 @@ class MVCLiteTest extends PHPUnit_Framework_TestCase
 		);
 		
 		unlink($path);
-	}
-	
-	public function testRoute ()
-	{
-		$mvc = MVCLite::getInstance();
-		
-		$this->assertEquals(
-			'MVCLite_Request_Route_Standard',
-			get_class($mvc->getRoute())
-		);
-		$this->assertEquals(
-			$mvc,
-			$mvc->setRoute(new MVCLiteTestRoute())
-		);
-		$this->assertEquals(
-			'MVCLiteTestRoute',
-			get_class($mvc->getRoute())
-		);
-		$mvc->setRoute(new MVCLite_Request_Route_Standard());
 	}
 }
 

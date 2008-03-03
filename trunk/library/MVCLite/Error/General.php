@@ -40,7 +40,7 @@ class MVCLite_Error_General extends MVCLite_Error_Abstract
 		
 		$subView = $view->getView();
 		$subView->requestUrl = ($e instanceof MVCLite_Exception ? 
-			$e->getUrl() : $_SERVER['REQUEST_URI']);
+			$e->getUrl() : (PHP_SAPI != 'cli' ? $_SERVER['REQUEST_URI'] : ''));
 		$subView->exceptionObject = $e;
 		
 		return $view;
