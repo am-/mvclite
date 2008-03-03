@@ -59,9 +59,9 @@ class MVCLite_Request_DispatcherTest extends PHPUnit_Framework_TestCase
 			"class FooController extends MVCLite_Controller_Abstract\n" .
 			"{\n" .
 			"	public function indexAction () { echo 'foobar'; }\n" .
-			"	public function redirectAction () { \$this->getRequest()->get()->foo = 'fubar'; \$this->_redirect('Foo', 'redirect2', array()); }\n" .
+			"	public function redirectAction () { \$this->getRequest()->get()->foo = 'fubar'; \$this->getHelper('Redirector')->redirect('Foo', 'redirect2', array()); }\n" .
 			"	public function redirect2Action () { echo \$this->getRequest()->get()->foo; }\n" .
-			"	public function dirtyAction () { \$this->getRequest()->get()->foo = 'fubar'; \$this->_redirect('Foo', 'dirty2', array(), MVCLite_Request_Dispatcher_Redirect::DIRTY); }\n" .
+			"	public function dirtyAction () { \$this->getRequest()->get()->foo = 'fubar'; \$this->getHelper('Redirector')->redirect('Foo', 'dirty2', array(), MVCLite_Request_Dispatcher_Redirect::DIRTY); }\n" .
 			"	public function dirty2Action () { echo \$this->getRequest()->get()->foo; }\n" .
 			"}"
 		);

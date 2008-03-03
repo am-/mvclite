@@ -231,6 +231,9 @@ class MVCLite_Controller_HelperTest extends PHPUnit_Framework_TestCase
 	public function testRegistryPaths ()
 	{
 		$registry = MVCLite_Controller_Helper_Registry::getInstance();
+		$default = array(
+			'MVCLite_Controller_Helper_' => $registry->getPath('MVCLite_Controller_Helper_')
+		);
 		
 		$this->assertEquals(
 			'MVCLite_Controller_Helper_Registry',
@@ -281,6 +284,7 @@ class MVCLite_Controller_HelperTest extends PHPUnit_Framework_TestCase
 			$registry->getPath('UnitTest_Controller_Helper_'),
 			'removePath did not work correctly'
 		);
+		$registry->setPath($default);
 	}
 }
 
