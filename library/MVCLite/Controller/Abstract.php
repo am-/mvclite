@@ -209,48 +209,6 @@ abstract class MVCLite_Controller_Abstract
 	}
 	
 	/**
-	 * This method allows to redirect.
-	 * 
-	 * You have to assign controller, action and arguments and
-	 * probably the modus of redirection. Otherwise the default
-	 * values are used instead. The redirection is done by using
-	 * an exeception. This causes that the code after the
-	 * redirection is not executed.
-	 * 
-	 * There are some different modi for redirection. See more
-	 * in the exception MVCLite_Request_Dispatcher_Redirect. To
-	 * sum it up, a short description:
-	 * 
-	 * <code>
-	 * default (0)
-	 * -> clean internal redirection
-	 * MVCLite_Request_Dispatcher_Redirect::EXTERNAL (1)
-	 * -> redirects to another URL using the Location-header
-	 * MVCLite_Request_Dispatcher_Redirect::DIRTY (2)
-	 * -> does not delete set data in the globals
-	 * </code>
-	 * 
-	 * @param string $controller destination controller
-	 * @param string $action destination action
-	 * @param array $arguments destination arguments
-	 * @param integer $modus type of redirection
-	 * @throws MVCLite_Request_Dispatcher_Redirect
-	 */
-	final protected function _redirect ($controller = 'Index',
-										$action = 'index',
-										array $arguments = array(),
-										$modus = 0)
-	{
-		throw new MVCLite_Request_Dispatcher_Redirect(
-			(string)$this->getRequest()
-						 ->setController($controller)
-						 ->setAction($action)
-						 ->setParams($arguments),
-			$modus
-		);
-	}
-	
-	/**
 	 * Method which is called after dispatching a request.
 	 */
 	protected function _shutdown ()
