@@ -28,21 +28,6 @@
 class MVCLite_View_Helper_Prepend extends MVCLite_View_Helper_Abstract
 {
 	/**
-	 * Base-url of the application.
-	 */
-	private $_base;
-	
-	/**
-	 * Sets the base-url.
-	 * 
-	 * @see MVCLite_View_Helper_Abstract::_init()
-	 */
-	protected function _init ()
-	{
-		$this->_base = MVCLite::getInstance()->getBaseUrl();
-	}
-	
-	/**
 	 * Returns the real url of a file.
 	 * 
 	 * @param string $url incomplete url
@@ -52,10 +37,10 @@ class MVCLite_View_Helper_Prepend extends MVCLite_View_Helper_Abstract
 	{
 		if($url[0] == '/')
 		{
-			return $this->_base . substr($url, 1);
+			return MVCLITE_BASE_URL . substr($url, 1);
 		}
 		
-		return $this->_base . $url;
+		return MVCLITE_BASE_URL . $url;
 	}
 }
 ?>

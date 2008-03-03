@@ -25,6 +25,16 @@ define('MVCLITE_CONTROLLER', MVCLITE_APP . 'controllers/');
 define('MVCLITE_MODEL', MVCLITE_APP . 'models/');
 // directory where the views (or templates) reside
 define('MVCLITE_VIEW', MVCLITE_APP . 'views/');
+// base-url; automatically discovered
+define('MVCLITE_BASE_URL', 
+	dirname(
+		$_SERVER['PHP_SELF']) == '/' ? '/'
+			: substr(
+				$_SERVER['PHP_SELF'],
+				0,
+				strrpos($_SERVER['PHP_SELF'], '/')
+	) . '/'
+);
 
 /*
  * Adds new paths to the include-path.

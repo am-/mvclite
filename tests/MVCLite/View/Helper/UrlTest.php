@@ -26,7 +26,6 @@ class MVCLite_View_Helper_UrlTest extends PHPUnit_Framework_TestCase
 {
 	public function testHelper ()
 	{
-		MVCLite::getInstance()->setRoute(new MVCLite_Request_Route_Standard());
 		$helper = new MVCLite_View_Helper_Url();
 		
 		$this->assertEquals(

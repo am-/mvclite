@@ -27,20 +27,15 @@ class Bootstrap extends MVCLite_Bootstrap
 	/**
 	 * Variable for testing.
 	 */
-	public $bar = 'bar';
+	public $bar = '';
 	/**
 	 * Variable for testing.
 	 */
-	public $foo = 'foo';
+	public $foo = '';
 	
 	public function init ()
 	{
 		$this->bar = 'foo';
-	}
-	
-	public function initBase ()
-	{
-		MVCLite::getInstance()->setBaseUrl('/');
 	}
 	
 	public function initFoo ()
@@ -50,7 +45,9 @@ class Bootstrap extends MVCLite_Bootstrap
 	
 	public function initRoute ()
 	{
-		MVCLite::getInstance()->setRoute(new MVCLite_Request_Route_Standard());
+		$route = new MVCLite_Request_Route_Standard();
+		$this->getFrontController()
+		     ->setDispatcher(new MVCLite_Request_Dispatcher($route));
 	}	
 }
 ?>

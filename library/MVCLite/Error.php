@@ -34,6 +34,14 @@ class MVCLite_Error
 	private $_chain = array();
 	
 	/**
+	 * Initializes the error-object.
+	 */
+	public function __construct ()
+	{
+		$this->restore();
+	}
+	
+	/**
 	 * Attaches a new element to the chain.
 	 * 
 	 * @param MVCLite_Error_Abstract $element new element
@@ -43,6 +51,19 @@ class MVCLite_Error
 	{
 		$this->_chain[get_class($element)] = $element;
 		
+		return $this;
+	}
+	
+	/**
+	 * Clears the chain.
+	 * 
+	 * This method is fluent.
+	 * 
+	 * @return MVClite_Error
+	 */
+	public function clear ()
+	{
+		$this->_chain = array();
 		return $this;
 	}
 	
@@ -146,6 +167,22 @@ class MVCLite_Error
 		while($class);
 		
 		return $result;
+	}
+	
+	/**
+	 * Restores default-version.
+	 * 
+	 * This method is fluent.
+	 * 
+	 * @return MVCLite_Error
+	 */
+	public function restore ()
+	{
+		return $this->clear()
+					->attach(new MVCLite_Error_Database())
+					->attach(new MVCLite_Error_General())
+					->attach(new MVCLite_Error_NotFound())
+					->attach(new MVCLite_Error_Security());
 	}
 }
 ?>

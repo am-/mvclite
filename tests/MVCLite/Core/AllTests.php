@@ -49,6 +49,7 @@ class MVCLite_Core_AllTests
 		
 		$suite->addTestSuite('MVCLite_LoaderTest');
 		$suite->addTestSuite('MVCLiteTest');
+		$suite->addTestSuite('BootstrapTest');
 		
 		return $suite;
 	}
