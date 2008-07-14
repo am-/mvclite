@@ -207,13 +207,13 @@ class MVCLite_Request_Route_Standard implements MVCLite_Request_Route
 				array(
 					self::ARG_DELIMITER,
 					' ',
-					'ä',
-					'Ä',
-					'ü',
-					'Ü',
-					'ö',
-					'Ö',
-					'ß'
+					'Ã¤',
+					'Ã„',
+					'Ã¼',
+					'Ãœ',
+					'Ã¶',
+					'Ã–',
+					'ÃŸ'
 				),
 				array(
 					self::CHARACTER,
