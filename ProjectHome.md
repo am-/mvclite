@@ -1,0 +1,3 @@
+MVCLite is a PHP-project which tries to provide the most essential features for a website. Especially MVC is needed for this goal. Additionally, MVC Lite supports basic solutions which are easily extensible. Furthermore additional aims are easy understanding, transparency and good support for testing.
+
+If some applications get richer of features it can be necessary to change to a real, sophisticated MVC-framework. In the final phase of this project this need is adopted.
